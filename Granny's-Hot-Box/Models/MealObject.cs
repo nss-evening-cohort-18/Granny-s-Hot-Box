@@ -12,6 +12,6 @@
         public int quantity { get; set; }
         public bool isForSale { get; set; }
 
-
+        public bool doItFortheVine { get; set; }
     }
 }
