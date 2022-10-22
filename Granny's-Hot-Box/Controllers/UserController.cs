@@ -42,13 +42,14 @@ namespace Granny_s_Hot_Box.Controllers
 
         //}
 
-        //GET: UserController/Create
-        //public ActionResult Create()
-        //{
-  
-        //};
+        //POST api/<UserController>
+        [HttpPost]
+        public void PostUser(User user)
+        {
+            _userRepo.CreateUser(user);
+        }
 
-       
+
     }
 
         //POST: UserController/Create
