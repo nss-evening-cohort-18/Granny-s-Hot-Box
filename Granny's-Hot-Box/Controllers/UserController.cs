@@ -42,12 +42,12 @@ namespace Granny_s_Hot_Box.Controllers
         public ActionResult Details(int id)
         {
             User user = _userRepo.GetUserById(id);
-
+            
 
             ProfileViewModel vm = new ProfileViewModel()
             {
                 User = user,
-
+                
             };
 
             return View(vm);
@@ -56,6 +56,15 @@ namespace Granny_s_Hot_Box.Controllers
         //GET: UserController/Create
         public ActionResult Create()
         {
+            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+
+            UserFormViewModel vm = new UserFormViewModel()
+            {
+                User = new User(),
+                Neighborhoods = neighborhoods
+            };
+
+            return View(vm);
             List<User> Users = _userRepo.GetAll();
 
             UserFormViewModel vm = new UserFormViewModel()
