@@ -1,11 +1,13 @@
-﻿namespace Granny_s_Hot_Box.Interfaces
+﻿using Granny_s_Hot_Box.Models;
+
+namespace Granny_s_Hot_Box.Interfaces
 {
     public interface IUser
     {
-        public List<Users> GetAllUsers();
-        public void AddUser(Users user);
-        public void UpdateUser(Users user);
-        public void DeleteUser(string firebaseId);
-        public Users GetByFirebaseId(string firebaseId);
+        public List<User> GetAllUsers();
+        //public void AddUser(User user);
+        //public void UpdateUser(User user);
+        //public void DeleteUser(string firebaseId);
+        //public User GetByFirebaseId(string firebaseId);
     }
 }

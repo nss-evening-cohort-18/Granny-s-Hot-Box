@@ -1,12 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
 using Granny_s_Hot_Box.Models;
+using Granny_s_Hot_Box.Interfaces;
 
 namespace Granny_s_Hot_Box.Repositories
 {
-    public class UserRepository : BaseRepository
+    public class UserRepository : BaseRepository, IUser
     {
         private readonly string _baseSqlSelect = @"SELECT Id,
-                                                    FirebaseId,
+                                                    FirebaseUserId,
                                                     UserName,
                                                     Email,
                                                     Address,
@@ -47,7 +48,7 @@ namespace Granny_s_Hot_Box.Repositories
             return new User
             {
                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                FirebaseId = reader.GetString(reader.GetOrdinal("FirebaseId")),
+                FirebaseId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
                 UserName = reader.GetString(reader.GetOrdinal("UserName")),
                 Email = reader.GetString(reader.GetOrdinal("Email")),
                 Address = reader.GetString(reader.GetOrdinal("Address")),
