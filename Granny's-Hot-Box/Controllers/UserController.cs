@@ -10,14 +10,14 @@ using Granny_s_Hot_Box.Interfaces;
 
 namespace Granny_s_Hot_Box.Controllers
 {
-    public class usersController : Controller
+    public class userController : Controller
     {
         private readonly IUserRepository _userRepo;
         private readonly IUserPaymentsRepository _userPaymentsRepo;
         private readonly IOrderRepository _orderRepo;
         private readonly IMealProductRepository _mealProductRepo;
 
-        public UsersController(
+        public UserController(
             IUserRepository userRepository,
             IUserPaymentsRepository userPaymentsRepository,
             IOrderRepository orderRepository,
@@ -31,14 +31,14 @@ namespace Granny_s_Hot_Box.Controllers
 
 
 
-        //GET: UsersController
+        //GET: UserController
         public ActionResult Index()
         {
-            var users = _userRepo.GetAllUsers();
-            return View(users);
+            var user = _userRepo.GetAllUser();
+            return View(User);
         }
 
-        //GET: Users/Details/5
+        //GET: User/Details/5
         public ActionResult Details(int id)
         {
             User user = _userRepo.GetUserById(id);
@@ -53,7 +53,7 @@ namespace Granny_s_Hot_Box.Controllers
             return View(vm);
         }
 
-        //GET: UsersController/Create
+        //GET: UserController/Create
         public ActionResult Create()
         {
             List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
@@ -67,7 +67,7 @@ namespace Granny_s_Hot_Box.Controllers
             return View(vm);
         }
 
-        //POST: UsersController/Create
+        //POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(User newUser)
@@ -83,7 +83,7 @@ namespace Granny_s_Hot_Box.Controllers
             }
         }
 
-        //GET: UsersController/Edit/5
+        //GET: UserController/Edit/5
         public ActionResult Edit(int id)
         {
             User? user = _userRepo.GetuserById(id);
@@ -96,7 +96,7 @@ namespace Granny_s_Hot_Box.Controllers
             return View(user);
         }
 
-        //POST: UsersController/Edit/5
+        //POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, User user)
@@ -113,7 +113,7 @@ namespace Granny_s_Hot_Box.Controllers
             }
         }
 
-        //GET: UsersController/Delete/5
+        //GET: UserController/Delete/5
         public ActionResult Delete(int id)
         {
             User? user = _userRepo.GetUserById(id);
@@ -121,7 +121,7 @@ namespace Granny_s_Hot_Box.Controllers
             return View(user);
         }
 
-        //POST: Users/Delete/5
+        //POST: User/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, User User)
