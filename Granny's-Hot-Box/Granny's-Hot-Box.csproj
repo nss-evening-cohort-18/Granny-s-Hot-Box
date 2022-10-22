@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Granny_s_Hot_Box</RootNamespace>
+    <UserSecretsId>822698f3-5580-4607-8968-91bb0bca1867</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
