@@ -1,6 +1,6 @@
 ﻿namespace Granny_s_Hot_Box.Models
 {
-    public class Users
+    public class User
     {
         public int Id { get; set; } 
         public string firebaseId { get; set; }
@@ -11,7 +11,7 @@
         public bool isSeller { get; set; }
         public string bio { get; set; }
 
-        public List <Users> UserList { get; set; }
+        public List <User> UserList { get; set; }
 
     }
 }
