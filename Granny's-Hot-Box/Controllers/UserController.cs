@@ -35,7 +35,7 @@ namespace Granny_s_Hot_Box.Controllers
         public ActionResult Index()
         {
             var user = _userRepo.GetAllUser();
-            return View(User);
+            
         }
 
         //GET: User/Details/5
@@ -43,28 +43,13 @@ namespace Granny_s_Hot_Box.Controllers
         {
             User user = _userRepo.GetUserById(id);
             
-
-            ProfileViewModel vm = new ProfileViewModel()
-            {
-                User = user,
-                
-            };
-
-            return View(vm);
         }
 
         //GET: UserController/Create
         public ActionResult Create()
         {
-            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
+            List<User> users = _userRepo.GetAll();
 
-            UserFormViewModel vm = new UserFormViewModel()
-            {
-                User = new User(),
-                Neighborhoods = neighborhoods
-            };
-
-            return View(vm);
         }
 
         //POST: UserController/Create
@@ -72,15 +57,9 @@ namespace Granny_s_Hot_Box.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(User newUser)
         {
-            try
-            {
                 _userRepo.AddUser(newUser);
                 return RedirectToAction(nameof(Index));
-            }
-            catch (Exception ex)
-            {
-                return View(newUser);
-            }
+           
         }
 
         //GET: UserController/Edit/5
@@ -93,7 +72,7 @@ namespace Granny_s_Hot_Box.Controllers
                 return NotFound();
             }
 
-            return View(user);
+            return user;
         }
 
         //POST: UserController/Edit/5
@@ -101,16 +80,13 @@ namespace Granny_s_Hot_Box.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, User user)
         {
-            try
+           
             {
                 _userRepo.UpdateUser(user);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
-            {
-                return View(user);
-            }
+            
         }
 
         //GET: UserController/Delete/5
@@ -118,7 +94,7 @@ namespace Granny_s_Hot_Box.Controllers
         {
             User? user = _userRepo.GetUserById(id);
 
-            return View(user);
+            return user;
         }
 
         //POST: User/Delete/5
@@ -126,27 +102,24 @@ namespace Granny_s_Hot_Box.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, User User)
         {
-            try
+          
             {
                 _UserRepo.DeleteUser(id);
 
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
-            {
-                return View(user);
-            }
+           
         }
         //LOGIN GET
         public ActionResult Login()
         {
-            return View();
+            
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(LoginViewModel viewModel)
+        public async Task<ActionResult> Login()
         {
-            User user = _userRepo.GetUserByEmail(viewModel.Email);
+            User user = _userRepo.GetUserByEmail();
 
             if (user == null)
             {
@@ -181,4 +154,4 @@ namespace Granny_s_Hot_Box.Controllers
     }
 }
 
-}
+
