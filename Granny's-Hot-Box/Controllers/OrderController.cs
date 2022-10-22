@@ -87,9 +87,9 @@ namespace Granny_s_Hot_Box.Controllers
 
 
 
-//using DogGo.Models;
-//using DogGo.Models.ViewModels;
-//using DogGo.Repositories;
+//using Granny's-Hot-Box.Models;
+//using Granny's-Hot-Box.Models.ViewModels;
+//using Granny's-Hot-Box.Repositories;
 //using Microsoft.AspNetCore.Authentication.Cookies;
 //using Microsoft.AspNetCore.Authentication;
 //using Microsoft.AspNetCore.Http;
