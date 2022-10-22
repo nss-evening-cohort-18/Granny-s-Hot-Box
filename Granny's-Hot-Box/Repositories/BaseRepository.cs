@@ -1,4 +1,6 @@
-﻿namespace Granny_s_Hot_Box.Repositories
+﻿using System.Data.SqlClient;
+
+namespace Granny_s_Hot_Box.Repositories
 {
     public class BaseRepository
     {
