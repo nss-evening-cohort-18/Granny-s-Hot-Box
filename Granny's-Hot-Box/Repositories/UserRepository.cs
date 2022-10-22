@@ -57,5 +57,28 @@ namespace Granny_s_Hot_Box.Repositories
                 Bio = reader.GetString(reader.GetOrdinal("Bio"))
             };
         }
+
+        public void UpdateUser(User user)
+        {
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE User
+                            SET
+                                Id = @Id,
+                                UserName = @UserName,
+                                Email = @Email,
+                                Address = @Address,
+                                Image = @Image,
+                                IsSeller = @IsSeller,
+                                WHERE FirebaseId = @FirebaseId"
+                }
+            }
+            
+        }
     }
 }
