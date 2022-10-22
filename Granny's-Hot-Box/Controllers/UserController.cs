@@ -65,6 +65,15 @@ namespace Granny_s_Hot_Box.Controllers
             };
 
             return View(vm);
+            List<User> Users = _userRepo.GetAll();
+
+            UserFormViewModel vm = new UserFormViewModel()
+            {
+                User = new User(),
+                Users = users
+            };
+
+            return View(vm);
         }
 
         //POST: UserController/Create

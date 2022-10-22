@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Granny_s_Hot_Box.Models;
 
 namespace Granny_s_Hot_Box.Repositories
 {

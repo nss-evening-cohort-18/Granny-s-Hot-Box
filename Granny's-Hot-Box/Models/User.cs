@@ -11,6 +11,7 @@
         public bool IsSeller { get; set; }
         public string Bio { get; set; }
 
+
         public List <User> UsersList { get; set; }
 
     }
