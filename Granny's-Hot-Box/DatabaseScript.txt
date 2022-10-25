@@ -19,12 +19,12 @@ GO
 --varchar or nvarchar?
 CREATE TABLE [User] (
   [Id] INTEGER IDENTITY PRIMARY KEY NOT NULL,
-  [FirebaseUserId] NVARCHAR(28) NOT NULL,
-  [UserName] NVARCHAR(50) NOT NULL,
-  [Email] NVARCHAR(255) NOT NULL,
-  [Address] NVARCHAR(255) NOT NULL,
-  [Image] NVARCHAR(255) NOT NULL,
-  [Bio] VARCHAR (255),
+  [FirebaseUserId] VARCHAR(28) NOT NULL,
+  [UserName] VARCHAR(50) NOT NULL,
+  [Email] VARCHAR(255) NOT NULL,
+  [Address] VARCHAR(255) NOT NULL,
+  [Image] VARCHAR(255) NOT NULL,
+  [Bio] VARCHAR(255),
   [IsSeller] BIT NOT NULL
 
   CONSTRAINT UQ_FirebaseUserId UNIQUE(FirebaseUserId)
@@ -37,8 +37,8 @@ CREATE TABLE [PaymentType] (
 
 CREATE TABLE [UserPayments] (
 	[Id] INTEGER IDENTITY PRIMARY KEY NOT NULL,
-	[CardName] NVARCHAR(50) NOT NULL,
-	[AccountNum] NVARCHAR(50) NOT NULL,
+	[CardName] VARCHAR(50) NOT NULL,
+	[AccountNum] VARCHAR(50) NOT NULL,
 	[UserId] INTEGER NOT NULL,
 	[PaymentTypeId] INTEGER NOT NULL
 
@@ -49,8 +49,8 @@ CREATE TABLE [UserPayments] (
 CREATE TABLE [Order] (
 	[Id] INTEGER IDENTITY PRIMARY KEY NOT NULL,
 	[UserId] INTEGER NOT NULL,
-	[RecipientName] NVARCHAR(50) NOT NULL,
-	[ShippingAddress] NVARCHAR(255) NOT NULL,
+	[RecipientName] VARCHAR(50) NOT NULL,
+	[ShippingAddress] VARCHAR(255) NOT NULL,
 	[UserPaymentId] INTEGER NOT NULL,
 	[Total] DECIMAL NOT NULL,
 	[IsComplete] BIT NOT NULL,
@@ -63,11 +63,11 @@ CREATE TABLE [Order] (
 
 CREATE TABLE [MealProduct] (
 	[Id] INTEGER IDENTITY PRIMARY KEY NOT NULL,
-	[MealName] NVARCHAR(75) NOT NULL,
+	[MealName] VARCHAR(75) NOT NULL,
 	[Price] DECIMAL NOT NULL,
 	[UserId] INTEGER NOT NULL,
-	[Image] NVARCHAR(255) NOT NULL,
-	[Description] NVARCHAR(255) NOT NULL,
+	[Image] VARCHAR(255) NOT NULL,
+	[Description] VARCHAR(255) NOT NULL,
 	[Quantity] INTEGER NOT NULL,
 	[IsForSale] BIT NOT NULL
 
