@@ -35,12 +35,11 @@ namespace Granny_s_Hot_Box.Controllers
         }
 
         //GET: User/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    User user = _userRepo.GetUserById(id);
-
-
-        //}
+        [HttpGet("{id}")]
+        public User Details(int id)
+        {
+            return _userRepo.GetUserById(id);
+        }
 
         //POST api/<UserController>
         [HttpPost]
