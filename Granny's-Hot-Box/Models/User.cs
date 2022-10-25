@@ -11,6 +11,5 @@
         public bool IsSeller { get; set; }
         public string Bio { get; set; }
 
-
     }
 }

@@ -10,5 +10,8 @@ namespace Granny_s_Hot_Box.Interfaces
         //public void UpdateUser(User user);
         //public void DeleteUser(string firebaseId);
         //public User GetByFirebaseId(string firebaseId);
+
+        public void CreateUser(User user);
+
     }
 }
