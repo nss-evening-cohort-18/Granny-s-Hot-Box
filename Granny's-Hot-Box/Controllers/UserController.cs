@@ -49,47 +49,48 @@ namespace Granny_s_Hot_Box.Controllers
         }
 
 
-    }
+        [HttpDelete("{id}")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteUser(int id)
+        {
+            {
 
-        //POST: UserController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create()
-        //{
-        //   
-        //}
+                _userRepo.DeleteUser(id);
 
-        //GET: UserController/Edit/5
-        //public ActionResult Edit()
-        //{
-        //    
-        //}
-
-        //POST: UserController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit()
-        //{
-        //    
-        //}
-
-        //GET: UserController/Delete/5
-        //public ActionResult Delete()
-        //{
-        //    
-        //}
-
-        //POST: User/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete()
-        //{
-        //   
-        //}
-        //
-    
-
+                return Ok("UserDeleted");
+            }
+            //verify value with ID, not null.
+            //check if we have user with that id(if not 404 error).
+            //if user do soft delete
+        }
 
 
     }
+
+    //POST: UserController/Create
+    //[HttpPost]
+    //[ValidateAntiForgeryToken]
+    //public ActionResult Create()
+    //{
+    //   
+    //}
+
+    //GET: UserController/Edit/5
+    //public ActionResult Edit()
+    //{
+    //    
+    //}
+
+    //POST: UserController/Edit/5
+    //[HttpPost]
+    //[ValidateAntiForgeryToken]
+    //public ActionResult Edit()
+    //{
+    //    
+    //}
+
+
+
+
+}
 

@@ -8,7 +8,7 @@ namespace Granny_s_Hot_Box.Interfaces
         public User GetUserById(int id);
         //public void AddUser(User user);
         //public void UpdateUser(User user);
-        //public void DeleteUser(string firebaseId);
+        public void DeleteUser(int Id);
         //public User GetByFirebaseId(string firebaseId);
 
         public void CreateUser(User user);
