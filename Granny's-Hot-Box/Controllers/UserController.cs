@@ -35,8 +35,9 @@ namespace Granny_s_Hot_Box.Controllers
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(User user)
         {
+            _userRepo.UpdateUser(user);
         }
 
         //GET: User/Details/5
