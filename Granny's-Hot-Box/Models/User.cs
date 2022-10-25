@@ -12,7 +12,5 @@
         public string Bio { get; set; }
 
 
-        public List <User> UsersList { get; set; }
-
     }
 }
