@@ -43,6 +43,65 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
+
+       
+        public void CreateUser(User user)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    INSERT INTO [User] (FirebaseUserId, UserName, Email, Address, Image, IsSeller, Bio)
+                    OUTPUT INSERTED.ID
+                    VALUES (@firebaseId, @userName, @email, @address, @image, @isSeller, @bio);
+                ";
+                    cmd.Parameters.AddWithValue("@firebaseId", user.FirebaseId);
+                    cmd.Parameters.AddWithValue("@userName", user.UserName);
+                    cmd.Parameters.AddWithValue("@email", user.Email);
+                    cmd.Parameters.AddWithValue("@address", user.Address);
+                    cmd.Parameters.AddWithValue("@image", user.Image);
+                    cmd.Parameters.AddWithValue("@isSeller", user.IsSeller);
+                    cmd.Parameters.AddWithValue("@bio", user.Bio);
+
+                    int id = (int)cmd.ExecuteScalar();
+
+                    user.Id = id;
+
+                }
+            }
+        }
+
+
+ public User? GetUserById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
+                        $" = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        User? result = null;
+                        if (reader.Read())
+                        {
+                            return LoadFromData(reader);
+                        }
+
+                        return result;
+
+                    }
+                }
+            }
+        }
+
+
         private User LoadFromData(SqlDataReader reader)
         {
             return new User

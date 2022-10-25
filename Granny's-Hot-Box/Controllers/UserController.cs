@@ -35,20 +35,20 @@ namespace Granny_s_Hot_Box.Controllers
         }
 
         //GET: User/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    User user = _userRepo.GetUserById(id);
+        [HttpGet("{id}")]
+        public User Details(int id)
+        {
+            return _userRepo.GetUserById(id);
+        }
+
+        //POST api/<UserController>
+        [HttpPost]
+        public void PostUser(User user)
+        {
+            _userRepo.CreateUser(user);
+        }
 
 
-        //}
-
-        //GET: UserController/Create
-        //public ActionResult Create()
-        //{
-  
-        //};
-
-       
     }
 
         //POST: UserController/Create
