@@ -15,14 +15,14 @@ namespace Granny_s_Hot_Box.Controllers
     public class UserController : Controller
     {
         private readonly IUser _userRepo;
-        
+
 
         public UserController(
             IUser userRepository)
-          
+
         {
             _userRepo = userRepository;
-          
+
         }
 
         //GET: UserController
@@ -30,13 +30,8 @@ namespace Granny_s_Hot_Box.Controllers
         public List<User>? Get()
         {
             return _userRepo.GetAllUsers();
-         
-            
-        }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
+
         }
 
         //GET: User/Details/5
@@ -46,50 +41,21 @@ namespace Granny_s_Hot_Box.Controllers
             return _userRepo.GetUserById(id);
         }
 
-        //POST api/<UserController>
+        //POST api/Create
         [HttpPost]
         public void PostUser(User user)
         {
             _userRepo.CreateUser(user);
         }
-        //GET: UserController/Create
-        //public ActionResult Create()
-        //{
 
-        //};
+        //PUT: UserController/Edit/5
+        [HttpPut("{id}")]
+        public void Put(User user)
+        {
+            _userRepo.UpdateUser(user);
+        }
 
-
-    }
-
-        //POST: UserController/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create()
-        //{
-        //   
-        //}
-
-        //GET: UserController/Edit/5
-        //public ActionResult Edit()
-        //{
-        //    
-        //}
-
-        //POST: UserController/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit()
-        //{
-        //    
-        //}
-
-        //GET: UserController/Delete/5
-        //public ActionResult Delete()
-        //{
-        //    
-        //}
-
-        //POST: User/Delete/5
+        //POST: UserController/Delete/5
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public ActionResult Delete()
@@ -97,9 +63,10 @@ namespace Granny_s_Hot_Box.Controllers
         //   
         //}
         //
-    
+
 
 
 
     }
+}
 
