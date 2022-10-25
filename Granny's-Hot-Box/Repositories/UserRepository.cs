@@ -43,6 +43,8 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
+
+       
         public void CreateUser(User user)
         {
             using (SqlConnection conn = Connection)
@@ -66,9 +68,39 @@ namespace Granny_s_Hot_Box.Repositories
                     int id = (int)cmd.ExecuteScalar();
 
                     user.Id = id;
+
                 }
             }
         }
+
+
+ public User? GetUserById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
+                        $" = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        User? result = null;
+                        if (reader.Read())
+                        {
+                            return LoadFromData(reader);
+                        }
+
+                        return result;
+
+                    }
+                }
+            }
+        }
+
 
         private User LoadFromData(SqlDataReader reader)
         {
