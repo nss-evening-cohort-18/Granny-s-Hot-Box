@@ -101,29 +101,13 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
-
-        private User LoadFromData(SqlDataReader reader)
-        {
-            return new User
-            {
-                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                FirebaseId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
-                UserName = reader.GetString(reader.GetOrdinal("UserName")),
-                Email = reader.GetString(reader.GetOrdinal("Email")),
-                Address = reader.GetString(reader.GetOrdinal("Address")),
-                Image = reader.GetString(reader.GetOrdinal("Image")),
-                IsSeller = reader.GetBoolean(reader.GetOrdinal("IsSeller")),
-                Bio = reader.GetString(reader.GetOrdinal("Bio"))
-            };
-        }
-
         public void UpdateUser(User user)
         {
-            using(SqlConnection conn = Connection)
+            using (SqlConnection conn = Connection)
             {
                 conn.Open();
 
-                using(SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
                             UPDATE User
@@ -144,7 +128,52 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.ExecuteNonQuery();
                 }
             }
-            
+
         }
+
+        private User LoadFromData(SqlDataReader reader)
+        {
+            return new User
+            {
+                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                FirebaseId = reader.GetString(reader.GetOrdinal("FirebaseUserId")),
+                UserName = reader.GetString(reader.GetOrdinal("UserName")),
+                Email = reader.GetString(reader.GetOrdinal("Email")),
+                Address = reader.GetString(reader.GetOrdinal("Address")),
+                Image = reader.GetString(reader.GetOrdinal("Image")),
+                IsSeller = reader.GetBoolean(reader.GetOrdinal("IsSeller")),
+                Bio = reader.GetString(reader.GetOrdinal("Bio"))
+            };
+        }
+
+        //public void UpdateUser(User user)
+        //{
+        //    using(SqlConnection conn = Connection)
+        //    {
+        //        conn.Open();
+
+        //        using(SqlCommand cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //                    UPDATE User
+        //                    SET
+        //                        UserName = @userName,
+        //                        Email = @email,
+        //                        Address = @address,
+        //                        Image = @image,
+        //                        IsSeller = @isSeller,
+        //                        WHERE FirebaseId = @firebaseId";
+
+        //            cmd.Parameters.AddWithValue("@userName", user.UserName);
+        //            cmd.Parameters.AddWithValue("@email", user.Email);
+        //            cmd.Parameters.AddWithValue("@address", user.Address);
+        //            cmd.Parameters.AddWithValue("@image", user.Image);
+        //            cmd.Parameters.AddWithValue("@isSeller", user.IsSeller);
+
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+            
+        //}
     }
 }
