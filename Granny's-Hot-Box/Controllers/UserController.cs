@@ -34,6 +34,11 @@ namespace Granny_s_Hot_Box.Controllers
             
         }
 
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
         //GET: User/Details/5
         [HttpGet("{id}")]
         public User Details(int id)
@@ -47,6 +52,11 @@ namespace Granny_s_Hot_Box.Controllers
         {
             _userRepo.CreateUser(user);
         }
+        //GET: UserController/Create
+        //public ActionResult Create()
+        //{
+
+        //};
 
 
     }
