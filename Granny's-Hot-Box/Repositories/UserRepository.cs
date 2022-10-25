@@ -69,13 +69,20 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.CommandText = @"
                             UPDATE User
                             SET
-                                Id = @Id,
-                                UserName = @UserName,
-                                Email = @Email,
-                                Address = @Address,
-                                Image = @Image,
-                                IsSeller = @IsSeller,
-                                WHERE FirebaseId = @FirebaseId"
+                                UserName = @userName,
+                                Email = @email,
+                                Address = @address,
+                                Image = @image,
+                                IsSeller = @isSeller,
+                                WHERE FirebaseId = @firebaseId";
+
+                    cmd.Parameters.AddWithValue("@userName", user.UserName);
+                    cmd.Parameters.AddWithValue("@email", user.Email);
+                    cmd.Parameters.AddWithValue("@address", user.Address);
+                    cmd.Parameters.AddWithValue("@image", user.Image);
+                    cmd.Parameters.AddWithValue("@isSeller", user.IsSeller);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
             
