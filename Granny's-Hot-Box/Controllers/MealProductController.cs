@@ -36,8 +36,11 @@ namespace Granny_s_Hot_Box.Controllers
 
         // POST api/<MealProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public MealProduct CreateMealProduct(MealProduct product)
         {
+            var newProduct = _mealProductRepo.CreateMealProduct(product);
+
+            return newProduct; 
         }
 
         // PUT api/<MealProductController>/5
