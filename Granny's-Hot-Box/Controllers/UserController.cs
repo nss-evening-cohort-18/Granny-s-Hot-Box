@@ -27,25 +27,30 @@ namespace Granny_s_Hot_Box.Controllers
 
         //GET: UserController
         [HttpGet]
-        public List<User>? Get()
+        public ActionResult Get()
         {
-            return _userRepo.GetAllUsers();
 
+            var users = _userRepo.GetAllUsers();
+            return Ok(users);
+         
+ 
 
         }
 
         //GET: User/Details/5
         [HttpGet("{id}")]
-        public User Details(int id)
+        public ActionResult Details(int id)
         {
-            return _userRepo.GetUserById(id);
+            var user = _userRepo.GetUserById(id);
+            return Ok(user);
         }
 
         //POST api/Create
         [HttpPost]
-        public void PostUser(User user)
+        public ActionResult PostUser(User user)
         {
-            _userRepo.CreateUser(user);
+           var newUser =  _userRepo.CreateUser(user);
+           return Ok(newUser);
         }
 
         //PUT: UserController/Edit/5
@@ -55,14 +60,7 @@ namespace Granny_s_Hot_Box.Controllers
             _userRepo.UpdateUser(user);
         }
 
-        //POST: UserController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Delete()
-        //{
-        //   
-        //}
-        //
+
 
 
 
