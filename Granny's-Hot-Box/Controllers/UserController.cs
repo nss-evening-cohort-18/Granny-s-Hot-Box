@@ -27,70 +27,32 @@ namespace Granny_s_Hot_Box.Controllers
 
         //GET: UserController
         [HttpGet]
-        public List<User>? Get()
+        public ActionResult Get()
         {
-            return _userRepo.GetAllUsers();
+            var users = _userRepo.GetAllUsers();
+            return Ok(users);
          
-            
+ 
         }
 
         //GET: User/Details/5
         [HttpGet("{id}")]
-        public User Details(int id)
+        public ActionResult Details(int id)
         {
-            return _userRepo.GetUserById(id);
+            var user = _userRepo.GetUserById(id);
+            return Ok(user);
         }
 
         //POST api/<UserController>
         [HttpPost]
-        public void PostUser(User user)
+        public ActionResult PostUser(User user)
         {
-            _userRepo.CreateUser(user);
+           var newUser =  _userRepo.CreateUser(user);
+           return Ok(newUser);
         }
 
-
-        [HttpDelete("{id}")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteUser(int id)
-        {
-            {
-
-                _userRepo.DeleteUser(id);
-
-                return Ok("UserDeleted");
-            }
-            //verify value with ID, not null.
-            //check if we have user with that id(if not 404 error).
-            //if user do soft delete
         }
 
 
     }
-
-    //POST: UserController/Create
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult Create()
-    //{
-    //   
-    //}
-
-    //GET: UserController/Edit/5
-    //public ActionResult Edit()
-    //{
-    //    
-    //}
-
-    //POST: UserController/Edit/5
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult Edit()
-    //{
-    //    
-    //}
-
-
-
-
-}
 
