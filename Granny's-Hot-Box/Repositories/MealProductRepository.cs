@@ -4,7 +4,7 @@ using Granny_s_Hot_Box.Interfaces;
 
 namespace Granny_s_Hot_Box.Repositories
 {
-    public class MealProductRepository : BaseRepository
+    public class MealProductRepository : BaseRepository , IMealProduct
     {
         private readonly string _baseSqlSelect = @"SELECT Id,
                                                     MealName,
@@ -18,7 +18,30 @@ namespace Granny_s_Hot_Box.Repositories
 
         public MealProductRepository(IConfiguration config) : base(config) { }
 
+        public List<MealProduct> GetAllMealProducts()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = _baseSqlSelect;
 
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        var results = new List<MealProduct>();
+                        while (reader.Read())
+                        {
+                            var product = LoadFromData(reader);
+
+                            results.Add(product);
+                        }
+
+                        return results;
+                    }
+                }
+            }
+        }
 
 
 
