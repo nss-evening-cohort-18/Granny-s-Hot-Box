@@ -102,6 +102,36 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
+        public void UpdateUser(User user)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE [User]
+                            SET
+                                UserName = @userName,
+                                Email = @email,
+                                Address = @address,
+                                Image = @image,
+                                IsSeller = @isSeller
+                            WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@userName", user.UserName);
+                    cmd.Parameters.AddWithValue("@email", user.Email);
+                    cmd.Parameters.AddWithValue("@address", user.Address);
+                    cmd.Parameters.AddWithValue("@image", user.Image);
+                    cmd.Parameters.AddWithValue("@isSeller", user.IsSeller);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+        }
 
         private User LoadFromData(SqlDataReader reader)
         {
@@ -117,5 +147,7 @@ namespace Granny_s_Hot_Box.Repositories
                 Bio = reader.GetString(reader.GetOrdinal("Bio"))
             };
         }
+
+
     }
 }

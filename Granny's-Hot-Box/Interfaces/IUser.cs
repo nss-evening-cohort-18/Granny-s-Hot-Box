@@ -7,7 +7,10 @@ namespace Granny_s_Hot_Box.Interfaces
     {
         public List<User> GetAllUsers();
         public User GetUserById(int id);
-        public User CreateUser(User user);
 
+        public User CreateUser(User user);
+        public void UpdateUser(User user);
+       
+      
     }
 }

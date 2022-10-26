@@ -15,24 +15,26 @@ namespace Granny_s_Hot_Box.Controllers
     public class UserController : Controller
     {
         private readonly IUser _userRepo;
-        
+
 
         public UserController(
             IUser userRepository)
-          
+
         {
             _userRepo = userRepository;
-          
+
         }
 
         //GET: UserController
         [HttpGet]
         public ActionResult Get()
         {
+
             var users = _userRepo.GetAllUsers();
             return Ok(users);
          
  
+
         }
 
         //GET: User/Details/5
@@ -43,7 +45,7 @@ namespace Granny_s_Hot_Box.Controllers
             return Ok(user);
         }
 
-        //POST api/<UserController>
+        //POST api/Create
         [HttpPost]
         public ActionResult PostUser(User user)
         {
@@ -51,8 +53,18 @@ namespace Granny_s_Hot_Box.Controllers
            return Ok(newUser);
         }
 
+        //PUT: UserController/Edit/5
+        [HttpPut("{id}")]
+        public void Put(User user)
+        {
+            _userRepo.UpdateUser(user);
         }
 
 
+
+
+
+
     }
+}
 
