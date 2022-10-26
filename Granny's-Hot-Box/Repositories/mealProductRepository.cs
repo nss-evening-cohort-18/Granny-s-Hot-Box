@@ -73,7 +73,42 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
+        public void UpdateMealProduct(MealProduct product)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
 
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            UPDATE MealProduct
+                            SET
+                                MealName = @mealName,
+                                Price = @price,
+                                UserId = @userId,
+                                Image = @image,
+                                Description = @description,
+                                Quantity = @quantity,
+                                IsForSale = @isForSale
+                            WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@mealName", product.MealName);
+                    cmd.Parameters.AddWithValue("@price", product.Price);
+                    cmd.Parameters.AddWithValue("@userId", product.UserId);
+                    cmd.Parameters.AddWithValue("@image", product.Image);
+                    cmd.Parameters.AddWithValue("@description", product.Description);
+                    cmd.Parameters.AddWithValue("@quantity", product.Quantity);
+                    cmd.Parameters.AddWithValue("@isForSale", product.IsForSale);
+                    cmd.Parameters.AddWithValue("@id", product.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                   
+                }
+            }
+
+        }
 
 
         private MealProduct LoadFromData(SqlDataReader reader)
