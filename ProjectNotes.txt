@@ -1,0 +1,49 @@
+      
+      
+      ************************
+       ************************
+      Delete method for Controller 
+       ************************
+       ************************
+
+       [HttpDelete("{id}")]
+        public ActionResult DeleteUser(int id)
+        {
+            {
+                var userToDelete = _userRepo.GetUserById(id);
+                if (userToDelete != null) {
+                    //proceed with delete
+
+                    _userRepo.DeleteUser(id);
+                    return Ok();
+                }
+                else
+                {
+                    //bad id
+                    return BadRequest();
+                }                
+            }
+
+       ************************
+       ************************
+      Delete method for Repository 
+       ************************
+       ************************
+
+
+            public ActionResult DeleteUser(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM [User]
+                                        WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }

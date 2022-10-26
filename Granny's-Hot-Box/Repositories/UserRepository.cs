@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Granny_s_Hot_Box.Models;
 using Granny_s_Hot_Box.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Granny_s_Hot_Box.Repositories
 {
@@ -45,7 +46,7 @@ namespace Granny_s_Hot_Box.Repositories
 
 
        
-        public void CreateUser(User user)
+        public User CreateUser(User user)
         {
             using (SqlConnection conn = Connection)
             {
@@ -68,7 +69,7 @@ namespace Granny_s_Hot_Box.Repositories
                     int id = (int)cmd.ExecuteScalar();
 
                     user.Id = id;
-
+                    return user;
                 }
             }
         }
