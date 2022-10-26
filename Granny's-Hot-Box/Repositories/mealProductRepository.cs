@@ -43,6 +43,36 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
+        public MealProduct CreateMealProduct(MealProduct product)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    INSERT INTO [MealProduct] (MealName, Price, UserId, Image, Description, Quantity, IsForSale)
+                    OUTPUT INSERTED.ID
+                    VALUES (@MealName, @Price, @UserId, @Image, @Description, @Quantity, @IsForSale);
+                ";
+                    cmd.Parameters.AddWithValue("@MealName", product.MealName);
+                    cmd.Parameters.AddWithValue("@Price", product.Price);
+                    cmd.Parameters.AddWithValue("@UserId", product.UserId);
+                    cmd.Parameters.AddWithValue("@Image", product.Image);
+                    cmd.Parameters.AddWithValue("@Description", product.Description);
+                    cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
+                    cmd.Parameters.AddWithValue("@IsForSale", product.IsForSale);
+
+                    int id = (int)cmd.ExecuteScalar();
+
+                    product.Id = id;
+
+                    return product;
+
+                }
+            }
+        }
+
 
 
 
