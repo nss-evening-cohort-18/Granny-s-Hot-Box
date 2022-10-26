@@ -8,7 +8,7 @@ namespace Granny_s_Hot_Box.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MealProductController : ControllerBase
+    public class MealProductController
     {
         private readonly IMealProduct _mealProductRepo;
             

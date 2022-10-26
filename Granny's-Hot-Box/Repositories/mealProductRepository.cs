@@ -4,7 +4,7 @@ using Granny_s_Hot_Box.Interfaces;
 
 namespace Granny_s_Hot_Box.Repositories
 {
-    public class MealProductRepository : BaseRepository
+    public class MealProductRepository : BaseRepository , IMealProduct
     {
         private readonly string _baseSqlSelect = @"SELECT Id,
                                                     MealName,
