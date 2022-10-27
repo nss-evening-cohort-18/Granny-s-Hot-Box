@@ -46,8 +46,9 @@ namespace Granny_s_Hot_Box.Controllers
 
         // PUT api/<MealProductController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void UpdateMealProduct(MealProduct product)
         {
+            _mealProductRepo.UpdateMealProduct(product);
         }
 
         // DELETE api/<MealProductController>/5
