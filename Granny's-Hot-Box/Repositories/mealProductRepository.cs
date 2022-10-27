@@ -73,12 +73,38 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
-        public void UpdateMealProduct(MealProduct product)
+
+        public MealProduct? GetMealProductById(int id)
+
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
 
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
+                        $" = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        MealProduct? result = null;
+                        if (reader.Read())
+                        {
+                            return LoadFromData(reader);
+                        }
+
+                        return result;
+
+                    }
+                }
+            }
+        }
+
+            public void UpdateMealProduct(MealProduct product)
+            {           
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
