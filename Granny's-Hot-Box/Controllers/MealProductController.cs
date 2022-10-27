@@ -29,9 +29,10 @@ namespace Granny_s_Hot_Box.Controllers
 
         // GET api/<MealProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public MealProduct GetMealProductById(int id)
         {
-            return "value";
+            return _mealProductRepo.GetMealProductById(id);
+            
         }
 
         // POST api/<MealProductController>
