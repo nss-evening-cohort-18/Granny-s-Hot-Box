@@ -1,10 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
 using Granny_s_Hot_Box.Models;
 using Granny_s_Hot_Box.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Granny_s_Hot_Box.Repositories
 {
-    public class MealProductRepository : BaseRepository , IMealProduct
+    public class MealProductRepository : BaseRepository, IMealProduct
     {
         private readonly string _baseSqlSelect = @"SELECT Id,
                                                     MealName,
@@ -48,6 +49,7 @@ namespace Granny_s_Hot_Box.Repositories
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
+
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
@@ -73,12 +75,41 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
-        public void UpdateMealProduct(MealProduct product)
+
+        public MealProduct? GetMealProductById(int id)
+
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
 
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
+                        $" = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        MealProduct? result = null;
+                        if (reader.Read())
+                        {
+                            return LoadFromData(reader);
+                        }
+
+                        return result;
+
+                    }
+                }
+            }
+        }
+
+        public void UpdateMealProduct(MealProduct product)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
@@ -104,12 +135,30 @@ namespace Granny_s_Hot_Box.Repositories
 
                     cmd.ExecuteNonQuery();
 
-                   
+
                 }
             }
-
         }
 
+        public void DeleteMealProduct(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM MealProduct
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         private MealProduct LoadFromData(SqlDataReader reader)
         {
@@ -125,6 +174,9 @@ namespace Granny_s_Hot_Box.Repositories
                 IsForSale = reader.GetBoolean(reader.GetOrdinal("IsForSale"))
             };
         }
-
     }
+
 }
+
+
+
