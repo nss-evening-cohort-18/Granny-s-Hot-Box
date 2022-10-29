@@ -2,6 +2,8 @@
 using Granny_s_Hot_Box.Models;
 using Microsoft.AspNetCore.Mvc;
 
+
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Granny_s_Hot_Box.Controllers
@@ -11,7 +13,7 @@ namespace Granny_s_Hot_Box.Controllers
     public class MealProductController
     {
         private readonly IMealProduct _mealProductRepo;
-            
+
 
         public MealProductController(IMealProduct mealProductRepository)
         {
@@ -24,7 +26,7 @@ namespace Granny_s_Hot_Box.Controllers
         [HttpGet]
         public List<MealProduct> GetAll()
         {
-            return _mealProductRepo.GetAllMealProducts() ;
+            return _mealProductRepo.GetAllMealProducts();
         }
 
         // GET api/<MealProductController>/5
@@ -32,7 +34,7 @@ namespace Granny_s_Hot_Box.Controllers
         public MealProduct GetMealProductById(int id)
         {
             return _mealProductRepo.GetMealProductById(id);
-            
+
         }
 
         // POST api/<MealProductController>
@@ -41,7 +43,7 @@ namespace Granny_s_Hot_Box.Controllers
         {
             var newProduct = _mealProductRepo.CreateMealProduct(product);
 
-            return newProduct; 
+            return newProduct;
         }
 
         // PUT api/<MealProductController>/5
@@ -53,8 +55,12 @@ namespace Granny_s_Hot_Box.Controllers
 
         // DELETE api/<MealProductController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void DeleteMealProduct(int id)
+
         {
-        }
+            
+            _mealProductRepo.DeleteMealProduct(id);
+        }  
+         
     }
 }
