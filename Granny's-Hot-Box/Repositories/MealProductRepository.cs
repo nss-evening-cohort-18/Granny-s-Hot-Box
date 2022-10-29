@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Granny_s_Hot_Box.Models;
 using Granny_s_Hot_Box.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Granny_s_Hot_Box.Repositories
 {
@@ -140,6 +141,25 @@ namespace Granny_s_Hot_Box.Repositories
 
         }
 
+        public void DeleteMealProduct(int ownerId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            DELETE FROM MealProduct
+                            WHERE Id = @id
+                        ";
+
+                    cmd.Parameters.AddWithValue("@id", ownerId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
         private MealProduct LoadFromData(SqlDataReader reader)
         {
