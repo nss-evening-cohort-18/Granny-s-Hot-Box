@@ -138,8 +138,6 @@ namespace Granny_s_Hot_Box.Repositories
                 }
             }
 
-        }
-
 
         private MealProduct LoadFromData(SqlDataReader reader)
         {
