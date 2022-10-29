@@ -141,7 +141,7 @@ namespace Granny_s_Hot_Box.Repositories
 
         }
 
-        public void DeleteMealProduct(int ownerId)
+        public void DeleteMealProduct(int id)
         {
             using (SqlConnection conn = Connection)
             {
@@ -154,7 +154,7 @@ namespace Granny_s_Hot_Box.Repositories
                             WHERE Id = @id
                         ";
 
-                    cmd.Parameters.AddWithValue("@id", ownerId);
+                    cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
                 }
