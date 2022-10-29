@@ -3,270 +3,59 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Granny_s_Hot_Box.Models;
+using Granny_s_Hot_Box.Interfaces;
+using Granny_s_Hot_Box.Repositories;
 
 namespace Granny_s_Hot_Box.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class OrderController : Controller
     {
-        // GET: OrderController
-        public ActionResult Index()
+        private readonly IOrder _orderRepo;
+
+
+        public OrderController(
+            IOrder orderRepository)
+
         {
-            return View();
+            _orderRepo = orderRepository;
+
         }
 
-        // GET: OrderController/Details/5
-        public ActionResult Details(int id)
+        //GET: OrderController
+        [HttpGet]
+        public ActionResult GetAllOrders()
         {
-            return View();
+
+            var orders = _orderRepo.GetAllOrders();
+            return Ok(orders);
+
         }
 
-        // GET: OrderController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        ////GET: User/Details/5
+        //[HttpGet("{id}")]
+        //public ActionResult Details(int id)
+        //{
+        //    var user = _userRepo.GetUserById(id);
+        //    return Ok(user);
+        //}
 
-        // POST: OrderController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        ////POST api/Create
+        //[HttpPost]
+        //public ActionResult PostUser(User user)
+        //{
+        //    var newUser = _userRepo.CreateUser(user);
+        //    return Ok(newUser);
+        //}
 
-        // GET: OrderController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        ////PUT: UserController/Edit/5
+        //[HttpPut("{id}")]
+        //public void Put(User user)
+        //{
+        //    _userRepo.UpdateUser(user);
+        //}
 
-        // POST: OrderController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: OrderController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: OrderController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
-
-
-
-//using Granny's-Hot-Box.Models;
-//using Granny's-Hot-Box.Models.ViewModels;
-//using Granny's-Hot-Box.Repositories;
-//using Microsoft.AspNetCore.Authentication.Cookies;
-//using Microsoft.AspNetCore.Authentication;
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
-//using System.Security.Claims;
-
-//namespace DogGo.Controllers
-//{
-//    public class ordersController : Controller
-//    {
-//        private readonly IOrderRepository _orderRepo;
-//        private readonly IDogRepository _dogRepo;
-//        private readonly IWalkerRepository _walkerRepo;
-//        private readonly INeighborhoodRepository _neighborhoodRepo;
-
-//        public OrdersController(
-//            IOrderRepository orderRepository,
-//            IDogRepository dogRepository,
-//            IWalkerRepository walkerRepository,
-//            INeighborhoodRepository neighborhoodRepository)
-//        {
-//            _orderRepo = orderRepository;
-//            _dogRepo = dogRepository;
-//            _walkerRepo = walkerRepository;
-//            _neighborhoodRepo = neighborhoodRepository;
-//        }
-
-
-
-//        GET: OrdersController
-//        public ActionResult Index()
-//        {
-//            var orders = _orderRepo.GetAllOrders();
-//            return View(orders);
-//        }
-
-//        GET: Orders/Details/5
-//        public ActionResult Details(int id)
-//        {
-//            Order order = _orderRepo.GetOrderById(id);
-//            List<Dog> dogs = _dogRepo.GetDogsByOrderId(order.Id);
-//            List<Walker> walkers = _walkerRepo.GetWalkersInNeighborhood(order.NeighborhoodId);
-
-//            ProfileViewModel vm = new ProfileViewModel()
-//            {
-//                Order = order,
-//                Dogs = dogs,
-//                Walkers = walkers
-//            };
-
-//            return View(vm);
-//        }
-
-//        GET: OrdersController/Create
-//        public ActionResult Create()
-//        {
-//            List<Neighborhood> neighborhoods = _neighborhoodRepo.GetAll();
-
-//            OrderFormViewModel vm = new OrderFormViewModel()
-//            {
-//                Order = new Order(),
-//                Neighborhoods = neighborhoods
-//            };
-
-//            return View(vm);
-//        }
-
-//        POST: OrdersController/Create
-//       [HttpPost]
-//       [ValidateAntiForgeryToken]
-//        public ActionResult Create(Order newOrder)
-//        {
-//            try
-//            {
-//                _orderRepo.AddOrder(newOrder);
-//                return RedirectToAction(nameof(Index));
-//            }
-//            catch (Exception ex)
-//            {
-//                return View(newOrder);
-//            }
-//        }
-
-//        GET: OrdersController/Edit/5
-//        public ActionResult Edit(int id)
-//        {
-//            Order? order = _orderRepo.GetOrderById(id);
-
-//            if (order == null)
-//            {
-//                return NotFound();
-//            }
-
-//            return View(order);
-//        }
-
-//        POST: OrdersController/Edit/5
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public ActionResult Edit(int id, Order order)
-//        {
-//            try
-//            {
-//                _orderRepo.UpdateOrder(order);
-
-//                return RedirectToAction(nameof(Index));
-//            }
-//            catch (Exception ex)
-//            {
-//                return View(order);
-//            }
-//        }
-
-//        GET: OrdersController/Delete/5
-//        public ActionResult Delete(int id)
-//        {
-//            Order? order = _orderRepo.GetOrderById(id);
-
-//            return View(order);
-//        }
-
-//        POST: Orders/Delete/5
-//        [HttpPost]
-//        [ValidateAntiForgeryToken]
-//        public ActionResult Delete(int id, Order order)
-//        {
-//            try
-//            {
-//                _orderRepo.DeleteOrder(id);
-
-//                return RedirectToAction("Index");
-//            }
-//            catch (Exception ex)
-//            {
-//                return View(order);
-//            }
-//        }
-//        LOGIN GET
-//        public ActionResult Login()
-//        {
-//            return View();
-//        }
-
-//        [HttpPost]
-//        public async Task<ActionResult> Login(LoginViewModel viewModel)
-//        {
-//            Order order = _orderRepo.GetOrderByEmail(viewModel.Email);
-
-//            if (order == null)
-//            {
-//                return Unauthorized();
-//            }
-
-//            List<Claim> claims = new List<Claim>
-//    {
-//        new Claim(ClaimTypes.NameIdentifier, order.Id.ToString()),
-//        new Claim(ClaimTypes.Email, order.Email),
-//        new Claim(ClaimTypes.Role, "DogOrder"),
-//    };
-
-//            ClaimsIdentity claimsIdentity = new ClaimsIdentity(
-//                claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-//            await HttpContext.SignInAsync(
-//                CookieAuthenticationDefaults.AuthenticationScheme,
-//                new ClaimsPrincipal(claimsIdentity));
-
-//            return RedirectToAction("Index", "Dogs");
-//        }
-
-//        public async Task<ActionResult> Logout()
-//        {
-//            await HttpContext.SignOutAsync();
-//            return RedirectToAction("Index", "Home");
-//        }
-
-
-
-//    }
-//}
