@@ -46,92 +46,109 @@ namespace Granny_s_Hot_Box.Repositories
 
 
 
-        //public User CreateUser(User user)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //            INSERT INTO [User] (FirebaseUserId, UserName, Email, Address, Image, IsSeller, Bio)
-        //            OUTPUT INSERTED.ID
-        //            VALUES (@firebaseId, @userName, @email, @address, @image, @isSeller, @bio);
-        //        ";
-        //            cmd.Parameters.AddWithValue("@firebaseId", user.FirebaseId);
-        //            cmd.Parameters.AddWithValue("@userName", user.UserName);
-        //            cmd.Parameters.AddWithValue("@email", user.Email);
-        //            cmd.Parameters.AddWithValue("@address", user.Address);
-        //            cmd.Parameters.AddWithValue("@image", user.Image);
-        //            cmd.Parameters.AddWithValue("@isSeller", user.IsSeller);
-        //            cmd.Parameters.AddWithValue("@bio", user.Bio);
+        public Order CreateOrder(Order order)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    INSERT INTO [Order]             (UserId,
+                                                    Total,
+                                                    RecipientName,
+                                                    ShippingAddress,
+                                                    IsComplete,
+                                                    UserPaymentId,
+                                                    DateOrdered,
+                                                    DateCompleted)
+                    OUTPUT INSERTED.ID
+                    VALUES                          (@UserId,
+                                                    @Total,
+                                                    @RecipientName,
+                                                    @ShippingAddress,
+                                                    @IsComplete,
+                                                    @UserPaymentId,
+                                                    @DateOrdered,
+                                                    @DateCompleted);
+                ";
+                    cmd.Parameters.AddWithValue("@userId", order.UserId);
+                    cmd.Parameters.AddWithValue("@Total", order.Total);
+                    cmd.Parameters.AddWithValue("@RecipientName", order.RecipientName);
+                    cmd.Parameters.AddWithValue("@ShippingAddress", order.ShippingAddress);
+                    cmd.Parameters.AddWithValue("@IsComplete", order.IsComplete);
+                    cmd.Parameters.AddWithValue("@UserPaymentId", order.UserPaymentId);
+                    cmd.Parameters.AddWithValue("@DateOrdered", order.DateOrdered);
+                    cmd.Parameters.AddWithValue("@DateCompleted", order.DateCompleted);
 
-        //            int id = (int)cmd.ExecuteScalar();
+                    int id = (int)cmd.ExecuteScalar();
 
-        //            user.Id = id;
-        //            return user;
-        //        }
-        //    }
-        //}
+                    order.Id = id;
+                    return order;
+                }
+            }
+        }
 
 
-        //public User? GetUserById(int id)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
-        //                $" = @id";
+        public Order? GetOrderById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
+                        $" = @id";
 
-        //            cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@id", id);
 
-        //            using (SqlDataReader reader = cmd.ExecuteReader())
-        //            {
-        //                User? result = null;
-        //                if (reader.Read())
-        //                {
-        //                    return LoadFromData(reader);
-        //                }
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        Order? result = null;
+                        if (reader.Read())
+                        {
+                            return LoadFromData(reader);
+                        }
 
-        //                return result;
+                        return result;
 
-        //            }
-        //        }
-        //    }
-        //}
+                    }
+                }
+            }
+        }
 
-        //public void UpdateUser(User user)
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
+        public void UpdateOrder(Order order)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
 
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = @"
-        //                    UPDATE [User]
-        //                    SET
-        //                        UserName = @userName,
-        //                        Email = @email,
-        //                        Address = @address,
-        //                        Image = @image,
-        //                        IsSeller = @isSeller
-        //                    WHERE Id = @id";
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                UPDATE [Order]
+                                SET
+                                Total = @total,
+                                RecipientName = @recipientName,
+                                ShippingAddress = @shippingAddress,
+                                IsComplete = @isComplete,
+                                UserPaymentId = @userPaymentId,
+                                DateCompleted = @dateCompleted
+                            WHERE Id = @id";
 
-        //            cmd.Parameters.AddWithValue("@userName", user.UserName);
-        //            cmd.Parameters.AddWithValue("@email", user.Email);
-        //            cmd.Parameters.AddWithValue("@address", user.Address);
-        //            cmd.Parameters.AddWithValue("@image", user.Image);
-        //            cmd.Parameters.AddWithValue("@isSeller", user.IsSeller);
-        //            cmd.Parameters.AddWithValue("@id", user.Id);
+                    cmd.Parameters.AddWithValue("@total", order.Total);
+                    cmd.Parameters.AddWithValue("@recipientName", order.RecipientName);
+                    cmd.Parameters.AddWithValue("@shippingAddress", order.ShippingAddress);
+                    cmd.Parameters.AddWithValue("@isComplete", order.IsComplete);
+                    cmd.Parameters.AddWithValue("@userPaymentId", order.UserPaymentId);
+                    cmd.Parameters.AddWithValue("@dateCompleted", order.DateCompleted);
+                    cmd.Parameters.AddWithValue("@id", order.Id);
 
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
+                    cmd.ExecuteNonQuery();
+                }
+            }
 
-        //}
+        }
 
         private Order LoadFromData(SqlDataReader reader)
         {
