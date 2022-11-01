@@ -9,6 +9,8 @@ namespace Granny_s_Hot_Box.Interfaces
         public MealProduct CreateMealProduct(MealProduct product);
         public MealProduct GetMealProductById(int id);
         public void UpdateMealProduct(MealProduct mealProduct);
+        public void DeleteMealProduct(int id);
+
 
 
     }
