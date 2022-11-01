@@ -33,8 +33,6 @@ namespace Granny_s_Hot_Box.Controllers
             var users = _userRepo.GetAllUsers();
             return Ok(users);
          
- 
-
         }
 
         //GET: User/Details/5
