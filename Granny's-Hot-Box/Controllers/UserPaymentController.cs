@@ -3,11 +3,26 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Granny_s_Hot_Box.Interfaces;
 
 namespace Granny_s_Hot_Box.Controllers
 {
-    public class UserPaymentsController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+
+
+    public class UserPaymentController : Controller
     {
+        private readonly IUserPayment _userPaymentRepo;
+
+
+        public UserPaymentController(
+            IUserPayment userPaymentRepository)
+
+        {
+            _userPaymentRepo = userPaymentRepository;
+
+        }
         // GET: UserPaymentController
         public IActionResult Index()
         {

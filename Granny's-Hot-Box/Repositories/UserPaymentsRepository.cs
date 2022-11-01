@@ -4,7 +4,7 @@ using Granny_s_Hot_Box.Interfaces;
 
 namespace Granny_s_Hot_Box.Repositories
 {
-    public class UserPaymentRepository : BaseRepository
+    public class UserPaymentRepository : BaseRepository, IUserPayment
     {
         private readonly string _baseSqlSelect = @"SELECT Id,
                                                           CardName,
@@ -15,7 +15,7 @@ namespace Granny_s_Hot_Box.Repositories
 
         public UserPaymentRepository(IConfiguration config) : base(config) { }
 
-        public List<User> GetAllUserPayments()
+        public List<UserPayment> GetAllUserPayments()
         {
             using (var conn = Connection)
             {
@@ -26,12 +26,12 @@ namespace Granny_s_Hot_Box.Repositories
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        var results = new List<UserPayments>();
+                        var results = new List<UserPayment>();
                         while (reader.Read())
                         {
                             var user = LoadFromData(reader);
 
-                            results.Add(userPayments);
+                            results.Add(user);
                         }
 
                         return results;
@@ -39,4 +39,17 @@ namespace Granny_s_Hot_Box.Repositories
                 }
             }
         }
-
+        private UserPayment LoadFromData(SqlDataReader reader)
+        {
+            return new UserPayment
+            {
+                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                CardName = reader.GetString(reader.GetOrdinal("CardName")),
+                AccountNum = reader.GetString(reader.GetOrdinal("AccountNum")),
+                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                PaymentTypeId = reader.GetInt32(reader.GetOrdinal("PaymentTypeId"))
+                
+            };
+        }
+    }
+}

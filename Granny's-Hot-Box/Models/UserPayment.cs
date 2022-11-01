@@ -1,6 +1,6 @@
 ﻿namespace Granny_s_Hot_Box.Models
 {
-    public class UserPayments
+    public class UserPayment
     {
 
         public int Id { get; set; }
