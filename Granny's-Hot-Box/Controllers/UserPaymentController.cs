@@ -25,7 +25,15 @@ namespace Granny_s_Hot_Box.Controllers
             _userPaymentRepo = userPaymentRepository;
 
         }
-        
+        //GET: OrderController
+        [HttpGet]
+        public ActionResult GetAllUserPayments()
+        {
+
+            var userPayments = _userPaymentRepo.GetAllUserPayments();
+            return Ok(userPayments);
+
+        }
     }
 }
 
