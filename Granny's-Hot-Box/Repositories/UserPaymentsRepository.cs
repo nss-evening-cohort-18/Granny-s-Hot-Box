@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Granny_s_Hot_Box.Models;
 using Granny_s_Hot_Box.Interfaces;
+using NuGet.Protocol.Plugins;
 
 namespace Granny_s_Hot_Box.Repositories
 {
@@ -29,9 +30,9 @@ namespace Granny_s_Hot_Box.Repositories
                         var results = new List<UserPayment>();
                         while (reader.Read())
                         {
-                            var user = LoadFromData(reader);
+                            var userPayment = LoadFromData(reader);
 
-                            results.Add(user);
+                            results.Add(userPayment);
                         }
 
                         return results;
@@ -39,6 +40,40 @@ namespace Granny_s_Hot_Box.Repositories
                 }
             }
         }
+
+
+
+        public UserPayment? GetUserPaymentById(int id)
+
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
+                        $" = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        UserPayment? result = null;
+                        if (reader.Read())
+                        {
+                            return LoadFromData(reader);
+                        }
+
+                        return result;
+
+                    }
+                }
+            }
+        }
+
+
+
         private UserPayment LoadFromData(SqlDataReader reader)
         {
             return new UserPayment
@@ -50,6 +85,41 @@ namespace Granny_s_Hot_Box.Repositories
                 PaymentTypeId = reader.GetInt32(reader.GetOrdinal("PaymentTypeId"))
                 
             };
+        }
+        public UserPayment CreateUserPayment(UserPayment userPayments)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                   INSERT INTO [UserPayments]             (
+                                                          CardName,
+	                                                      AccountNum,
+	                                                      UserId,
+                                                          PaymentTypeId
+                                                          )
+                    OUTPUT INSERTED.ID
+                    VALUES                          (
+                                                          @CardName,
+	                                                      @AccountNum,
+	                                                      @UserId,
+                                                          @PaymentTypeId
+                                                          );
+                ";
+                    cmd.Parameters.AddWithValue("@CardName", userPayments.CardName);
+                    cmd.Parameters.AddWithValue("@AccountNum", userPayments.AccountNum);
+                    cmd.Parameters.AddWithValue("@UserId", userPayments.UserId);
+                    cmd.Parameters.AddWithValue("@PaymentTypeId", userPayments.PaymentTypeId);
+
+
+                    int id = (int)cmd.ExecuteScalar();
+
+                    userPayments.Id = id;
+                    return userPayments;
+                }
+            }
         }
 
         public void UpdateUserPayments(UserPayment userPayment)
@@ -79,3 +149,5 @@ namespace Granny_s_Hot_Box.Repositories
         }
     }
 }
+
+
