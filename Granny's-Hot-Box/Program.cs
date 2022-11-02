@@ -9,7 +9,7 @@ builder.Services.AddTransient<IMealProduct, MealProductRepository>();
 builder.Services.AddTransient<IOrderMeals, OrderMealsRepository>();
 builder.Services.AddTransient<IPaymentType, PaymentTypeRepository>();
 builder.Services.AddTransient<IOrder, OrderRepository>();
-builder.Services.AddTransient<IUserPayment, UserPaymentRepository>();
+builder.Services.AddTransient<IUserPayments, UserPaymentRepository>();
 
 
 builder.Services.AddControllers();

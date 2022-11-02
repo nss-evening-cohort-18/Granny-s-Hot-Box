@@ -11,7 +11,7 @@ namespace Granny_s_Hot_Box.Repositories
 	                                                      AccountNum,
 	                                                      UserId,
                                                           PaymentTypeId
-                                                          FROM UserPayment";
+                                                          FROM UserPayments";
 
         public UserPaymentRepository(IConfiguration config) : base(config) { }
 
@@ -52,23 +52,21 @@ namespace Granny_s_Hot_Box.Repositories
             };
         }
 
-        public void UpdateUserPayment(UserPayment userPayment)
+        public void UpdateUserPayments(UserPayment userPayment)
         {
             using (SqlConnection conn = Connection) 
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    //Be sure to double check with other repos
                     cmd.CommandText = @"
                     UPDATE UserPayments
                     SET
-                        CardName = @cardName
-                        AccountNum = @accountNum
-                        UserId = @userId
+                        CardName = @cardName,
+                        AccountNum = @accountNum,
+                        UserId = @userId,
                         PaymentTypeId = @paymentTypeId
-                    WHERE Id = @id
-                ";
+                    WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@cardName", userPayment.CardName);
                     cmd.Parameters.AddWithValue("@accountNum", userPayment.AccountNum);
