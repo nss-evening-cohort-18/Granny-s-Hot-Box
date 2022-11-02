@@ -5,6 +5,8 @@ namespace Granny_s_Hot_Box.Interfaces
     public interface IUserPayment
     {
         public List<UserPayment> GetAllUserPayments();
+
+        public UserPayment GetUserPaymentById(int id);
         
     }
 }
