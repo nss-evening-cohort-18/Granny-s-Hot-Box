@@ -40,6 +40,39 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
+
+
+        public UserPayment? GetUserPaymentById(int id)
+
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
+                        $" = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        UserPayment? result = null;
+                        if (reader.Read())
+                        {
+                            return LoadFromData(reader);
+                        }
+
+                        return result;
+
+                    }
+                }
+            }
+        }
+
+
+
         private UserPayment LoadFromData(SqlDataReader reader)
         {
             return new UserPayment
