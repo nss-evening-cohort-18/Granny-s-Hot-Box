@@ -15,15 +15,20 @@ namespace Granny_s_Hot_Box.Controllers
 
     public class UserPaymentController : Controller
     {
-        private readonly IUserPayment _userPaymentRepo;
+        private readonly IUserPayments _userPaymentRepo;
 
 
         public UserPaymentController(
-            IUserPayment userPaymentRepository)
+            IUserPayments userPaymentRepository)
 
         {
             _userPaymentRepo = userPaymentRepository;
 
+        }
+
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
         }
         
     }

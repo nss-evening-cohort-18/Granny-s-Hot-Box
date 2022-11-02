@@ -4,7 +4,7 @@ using Granny_s_Hot_Box.Interfaces;
 
 namespace Granny_s_Hot_Box.Repositories
 {
-    public class UserPaymentRepository : BaseRepository, IUserPayment
+    public class UserPaymentRepository : BaseRepository, IUserPayments
     {
         private readonly string _baseSqlSelect = @"SELECT Id,
                                                           CardName,
@@ -50,6 +50,34 @@ namespace Granny_s_Hot_Box.Repositories
                 PaymentTypeId = reader.GetInt32(reader.GetOrdinal("PaymentTypeId"))
                 
             };
+        }
+
+        public void UpdateUserPayment(UserPayment userPayment)
+        {
+            using (SqlConnection conn = Connection) 
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    //Be sure to double check with other repos
+                    cmd.CommandText = @"
+                    UPDATE UserPayments
+                    SET
+                        CardName = @cardName
+                        AccountNum = @accountNum
+                        UserId = @userId
+                        PaymentTypeId = @paymentTypeId
+                    WHERE Id = @id
+                ";
+
+                    cmd.Parameters.AddWithValue("@cardName", userPayment.CardName);
+                    cmd.Parameters.AddWithValue("@accountNum", userPayment.AccountNum);
+                    cmd.Parameters.AddWithValue("@userId", userPayment.UserId);
+                    cmd.Parameters.AddWithValue("@paymentTypeId", userPayment.PaymentTypeId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
