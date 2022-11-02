@@ -15,11 +15,11 @@ namespace Granny_s_Hot_Box.Controllers
 
     public class UserPaymentController : Controller
     {
-        private readonly IUserPayments _userPaymentRepo;
+        private readonly IUserPayment _userPaymentRepo;
 
 
         public UserPaymentController(
-            IUserPayments userPaymentRepository)
+            IUserPayment userPaymentRepository)
 
         {
             _userPaymentRepo = userPaymentRepository;

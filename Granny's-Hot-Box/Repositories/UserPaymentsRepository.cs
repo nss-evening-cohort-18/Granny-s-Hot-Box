@@ -5,7 +5,7 @@ using NuGet.Protocol.Plugins;
 
 namespace Granny_s_Hot_Box.Repositories
 {
-    public class UserPaymentRepository : BaseRepository, IUserPayments
+    public class UserPaymentRepository : BaseRepository, IUserPayment
     {
         private readonly string _baseSqlSelect = @"SELECT Id,
                                                           CardName,
