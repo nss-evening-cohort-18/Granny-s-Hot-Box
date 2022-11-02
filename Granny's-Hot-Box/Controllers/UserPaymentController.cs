@@ -26,6 +26,7 @@ namespace Granny_s_Hot_Box.Controllers
 
         }
 
+
         ////POST api/Create
         [HttpPost]
         public ActionResult CreateUserPayment(UserPayment userPayment)
@@ -34,6 +35,27 @@ namespace Granny_s_Hot_Box.Controllers
             return Ok(newUserPayment);
         }
 
+        //GET: OrderController
+        [HttpGet]
+        public ActionResult GetAllUserPayments()
+        {
+
+            var userPayments = _userPaymentRepo.GetAllUserPayments();
+            return Ok(userPayments);
+
+
+        }
+
+            // GET api/<UserPaymentController>/5
+            [HttpGet("{id}")]
+            public ActionResult GetUserPaymentById(int id)
+            {
+                var userPayments = _userPaymentRepo.GetUserPaymentById(id);
+
+                return Ok(userPayments);
+
+            }
+        
     }
 }
 
