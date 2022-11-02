@@ -29,9 +29,9 @@ namespace Granny_s_Hot_Box.Repositories
                         var results = new List<UserPayment>();
                         while (reader.Read())
                         {
-                            var user = LoadFromData(reader);
+                            var userPayment = LoadFromData(reader);
 
-                            results.Add(user);
+                            results.Add(userPayment);
                         }
 
                         return results;
@@ -39,6 +39,8 @@ namespace Granny_s_Hot_Box.Repositories
                 }
             }
         }
+
+
 
         public UserPayment? GetUserPaymentById(int id)
 

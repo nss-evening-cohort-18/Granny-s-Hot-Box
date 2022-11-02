@@ -26,6 +26,16 @@ namespace Granny_s_Hot_Box.Controllers
 
         }
 
+        //GET: OrderController
+        [HttpGet]
+        public ActionResult GetAllUserPayments()
+        {
+
+            var userPayments = _userPaymentRepo.GetAllUserPayments();
+            return Ok(userPayments);
+
+
+
 
         // GET api/<UserPaymentController>/5
         [HttpGet("{id}")]
@@ -34,6 +44,7 @@ namespace Granny_s_Hot_Box.Controllers
             var userPayments = _userPaymentRepo.GetUserPaymentById(id);
 
             return Ok(userPayments);
+
         }
     }
 }
