@@ -25,7 +25,17 @@ namespace Granny_s_Hot_Box.Controllers
             _userPaymentRepo = userPaymentRepository;
 
         }
-        
+
+        ////POST api/Create
+        [HttpPost]
+        public ActionResult CreateUserPayment(UserPayment userPayment)
+        {
+            var newUserPayment = _userPaymentRepo.CreateUserPayment(userPayment);
+            return Ok(newUserPayment);
+        }
+
     }
 }
+
+
 
