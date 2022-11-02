@@ -142,6 +142,7 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.Parameters.AddWithValue("@accountNum", userPayment.AccountNum);
                     cmd.Parameters.AddWithValue("@userId", userPayment.UserId);
                     cmd.Parameters.AddWithValue("@paymentTypeId", userPayment.PaymentTypeId);
+                    cmd.Parameters.AddWithValue("@id", userPayment.Id);
 
                     cmd.ExecuteNonQuery();
                 }

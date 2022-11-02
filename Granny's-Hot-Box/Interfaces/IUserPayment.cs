@@ -10,7 +10,6 @@ namespace Granny_s_Hot_Box.Interfaces
         
         public UserPayment GetUserPaymentById(int id);
         
-
         public void UpdateUserPayments(UserPayment userPayment);
         
     }
