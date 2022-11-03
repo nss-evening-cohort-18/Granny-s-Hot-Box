@@ -28,8 +28,8 @@ namespace Granny_s_Hot_Box.Controllers
             return Ok(om);
         }
 
-        // GET api/<OrderMealsController>/5
-       /*
+        //GET api/<OrderMealsController>/5
+       
         [HttpGet("GetOrderMealsByOrderId/{id}")]
         public ActionResult GetOrderMealsByOrderId(int id)
         {
@@ -37,15 +37,8 @@ namespace Granny_s_Hot_Box.Controllers
             return Ok(om);
         }
 
-        // GET api/<OrderMealsController>/5
+       
 
-        [HttpGet("GetOrderMealsByMealProductId/{id}")]
-        public ActionResult GetOrderMealsByMealProductId(int id)
-        {
-            var om = _OMRepo.GetOrderMealsByMealProductId(id);
-            return Ok(om);
-        }
-       */
-      
+
     }
 }
