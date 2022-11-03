@@ -53,7 +53,7 @@ namespace Granny_s_Hot_Box.Repositories
                     OUTPUT INSERTED.ID
                     VALUES (@orderId, @mealProductId);
                 ";
-                    cmd.Parameters.AddWithValue("@orderId", om.orderId);
+                    cmd.Parameters.AddWithValue("@OrderId", om.orderId);
                     cmd.Parameters.AddWithValue("@mealProductId", om.mealProductId);
 
                     int id = (int)cmd.ExecuteScalar();
@@ -67,7 +67,7 @@ namespace Granny_s_Hot_Box.Repositories
         }
 
 
-        public OrderMealsViewModel? GetOrderMealsByOrderId(int id)
+        public List <OrderMealsViewModel>? GetOrderMealsByOrderId(int id)
 
         {
             using (SqlConnection conn = Connection)
@@ -76,17 +76,44 @@ namespace Granny_s_Hot_Box.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
+                    cmd.CommandText = @$"SELECT o.Id AS OrderId, mp.Id AS MealProductId, o.UserId, RecipientName, ShippingAddress, UserPaymentId, Total, IsComplete, DateOrdered, DateCompleted, MealName, Price, mp.UserId AS SellerId, [Image], [Description], Quantity, IsForSale 
+                                         FROM((OrderMeals om
+                                        JOIN[Order] o ON om.OrderId = o.Id)
+                                        JOIN MealProduct mp ON om.MealProductId = mp.Id) WHERE Id" +
                         $" = @orderId";
 
-                    cmd.Parameters.AddWithValue("@orderId", id);
+                    cmd.Parameters.AddWithValue("@OrderId", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        OrderMealsViewModel? result = null;
+                        List <OrderMealsViewModel>? result = new List<OrderMealsViewModel>();
                         if (reader.Read())
                         {   
-                            return LoadFromData(reader);
+                            OrderMealsViewModel viewModel = new OrderMealsViewModel();
+                            {
+                                int Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                               int OrderId = reader.GetInt32(reader.GetOrdinal("OrderId"));
+                               int  MealProductId = reader.GetInt32(reader.GetOrdinal("mealProductId"));
+                               int OrderUserId = reader.GetInt32(reader.GetOrdinal("OrderUserId"));
+                               string RecipientName = reader.GetString(reader.GetOrdinal("RecipientName"));
+                               string ShippingAddress = reader.GetString(reader.GetOrdinal("ShippingAddress"));
+                               int UserPaymentId = reader.GetInt32(reader.GetOrdinal("UserPaymentId"));
+                               decimal Total = reader.GetDecimal(reader.GetOrdinal("Total"));
+                               Boolean IsComplete = reader.GetBoolean(reader.GetOrdinal("IsComplete"));
+                               DateTime DateOrdered = reader.GetDateTime(reader.GetOrdinal("DateOrdered"));
+                               DateTime DateCompleted = reader.GetDateTime(reader.GetOrdinal("DateCompleted"));
+                               string MealName = reader.GetString(reader.GetOrdinal("MealName"));
+                               decimal Price = reader.GetDecimal(reader.GetOrdinal("Price"));
+                               int SellerId = reader.GetInt32(reader.GetOrdinal("SellerId"));
+                               string Image = reader.GetString(reader.GetOrdinal("Image"));
+                               string Description = reader.GetString(reader.GetOrdinal("Description"));
+                               int Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"));
+                               Boolean IsForSale = reader.GetBoolean(reader.GetOrdinal("IsForSale"));
+
+                            }
+
+                            result.Add(viewModel);
+                            
                         }
 
                         return result;
