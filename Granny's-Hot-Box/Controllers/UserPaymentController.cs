@@ -47,17 +47,19 @@ namespace Granny_s_Hot_Box.Controllers
         }
 
             // GET api/<UserPaymentController>/5
-            [HttpGet("{id}")]
-            public ActionResult GetUserPaymentById(int id)
-            {
-                var userPayments = _userPaymentRepo.GetUserPaymentById(id);
+        [HttpGet("{id}")]
+        public ActionResult GetUserPaymentById(int id)
+        {
+            var userPayments = _userPaymentRepo.GetUserPaymentById(id);
 
-                return Ok(userPayments);
+            return Ok(userPayments);
 
-            }
-        
+        }
+
+        [HttpPut("{id}")]
+        public void UpdateUserPayments(UserPayment userPayment)
+        {
+            _userPaymentRepo.UpdateUserPayments(userPayment);
+        }
     }
 }
-
-
-

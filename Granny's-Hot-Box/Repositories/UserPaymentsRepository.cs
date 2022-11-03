@@ -121,6 +121,33 @@ namespace Granny_s_Hot_Box.Repositories
                 }
             }
         }
+
+        public void UpdateUserPayments(UserPayment userPayment)
+        {
+            using (SqlConnection conn = Connection) 
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    UPDATE UserPayments
+                    SET
+                        CardName = @cardName,
+                        AccountNum = @accountNum,
+                        UserId = @userId,
+                        PaymentTypeId = @paymentTypeId
+                    WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@cardName", userPayment.CardName);
+                    cmd.Parameters.AddWithValue("@accountNum", userPayment.AccountNum);
+                    cmd.Parameters.AddWithValue("@userId", userPayment.UserId);
+                    cmd.Parameters.AddWithValue("@paymentTypeId", userPayment.PaymentTypeId);
+                    cmd.Parameters.AddWithValue("@id", userPayment.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
 
