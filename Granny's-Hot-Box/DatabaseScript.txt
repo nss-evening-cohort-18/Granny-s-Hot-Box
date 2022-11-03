@@ -55,7 +55,7 @@ CREATE TABLE [Order] (
 	[Total] DECIMAL NOT NULL,
 	[IsComplete] BIT NOT NULL,
 	[DateOrdered] DATE NOT NULL,
-	[DateCompleted] DATE
+	[DateCompleted] DATE DEFAULT '1900-01-01'
 
 	CONSTRAINT FK_Order_User FOREIGN KEY (UserId) REFERENCES [User](Id),
 	CONSTRAINT FK_Order_UserPayments FOREIGN KEY (UserPaymentId) REFERENCES [UserPayments](Id),
@@ -120,7 +120,7 @@ INSERT INTO [Order]
 	([Id], [UserId], [RecipientName], [ShippingAddress], [UserPaymentId], [Total], [IsComplete], [DateOrdered], [DateCompleted])
 VALUES
 	(1, 2, 'Jenny Miller', '777 Memorial Blvd Murfreesboro, TN 39303', 2, 37, 1, '2022-09-14', '2022-09-18'),
-	(2, 1, 'Sam Jenkins', '909 Forest Ave Franklin, TN 38105', 1, 53, 0, '2022-10-10', NULL);
+	(2, 1, 'Sam Jenkins', '909 Forest Ave Franklin, TN 38105', 1, 53, 0, '2022-10-10', default);
 SET IDENTITY_INSERT [Order] OFF
 
 
