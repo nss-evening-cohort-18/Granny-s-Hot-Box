@@ -76,22 +76,22 @@ namespace Granny_s_Hot_Box.Repositories
 
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @$"SELECT o.Id AS OrderId, mp.Id AS MealProductId, o.UserId, RecipientName, ShippingAddress, UserPaymentId, Total, IsComplete, DateOrdered, DateCompleted, MealName, Price, mp.UserId AS SellerId, [Image], [Description], Quantity, IsForSale 
+                    cmd.CommandText = @$"SELECT Id, o.Id AS OrderId, mp.Id AS MealProductId, o.UserId AS OrderUserId, RecipientName, ShippingAddress, UserPaymentId, Total, IsComplete, DateOrdered, DateCompleted, MealName, Price, mp.UserId AS SellerId, [Image], [Description], Quantity, IsForSale 
                                          FROM((OrderMeals om
                                         JOIN[Order] o ON om.OrderId = o.Id)
                                         JOIN MealProduct mp ON om.MealProductId = mp.Id) WHERE Id" +
-                        $" = @orderId";
+                        $" = @Id";
 
-                    cmd.Parameters.AddWithValue("@OrderId", id);
+                    cmd.Parameters.AddWithValue("@Id", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         List <OrderMealsViewModel>? result = new List<OrderMealsViewModel>();
-                        if (reader.Read())
+                        while (reader.Read())
                         {   
                             OrderMealsViewModel viewModel = new OrderMealsViewModel();
                             {
-                                int Id = reader.GetInt32(reader.GetOrdinal("Id"));
+                               int Id = reader.GetInt32(reader.GetOrdinal("Id"));
                                int OrderId = reader.GetInt32(reader.GetOrdinal("OrderId"));
                                int  MealProductId = reader.GetInt32(reader.GetOrdinal("mealProductId"));
                                int OrderUserId = reader.GetInt32(reader.GetOrdinal("OrderUserId"));
@@ -123,7 +123,7 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
-*/
+
 
 /*
         public OrderMeals? GetOrderMealsByMealProductId(int id)
