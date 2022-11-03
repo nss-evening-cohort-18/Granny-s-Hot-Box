@@ -66,8 +66,8 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
-/*
-        public OrderMeals? GetOrderMealsByOrderId(int id)
+
+        public OrderMealsViewModel? GetOrderMealsByOrderId(int id)
 
         {
             using (SqlConnection conn = Connection)
@@ -77,15 +77,15 @@ namespace Granny_s_Hot_Box.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = $"{_baseSqlSelect} WHERE Id" +
-                        $" = @id";
+                        $" = @orderId";
 
                     cmd.Parameters.AddWithValue("@orderId", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        OrderMeals? result = null;
+                        OrderMealsViewModel? result = null;
                         if (reader.Read())
-                        {
+                        {   
                             return LoadFromData(reader);
                         }
 

@@ -29,14 +29,14 @@ namespace Granny_s_Hot_Box.Controllers
         }
 
         // GET api/<OrderMealsController>/5
-       /*
+       
         [HttpGet("GetOrderMealsByOrderId/{id}")]
         public ActionResult GetOrderMealsByOrderId(int id)
         {
             var om = _OMRepo.GetOrderMealsByOrderId(id);
             return Ok(om);
         }
-
+/*
         // GET api/<OrderMealsController>/5
 
         [HttpGet("GetOrderMealsByMealProductId/{id}")]
