@@ -1,7 +1,35 @@
 using Granny_s_Hot_Box.Repositories;
 using Granny_s_Hot_Box.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 var builder = WebApplication.CreateBuilder(args);
+
+FirebaseApp.Create(new AppOptions
+{
+    Credential = GoogleCredential.FromFile("")
+});
+
+var firebaseProjectId = builder.Configuration.GetValue<string>("Authentication:Firebase:ProjectId");
+var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = googleTokenUrl;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = googleTokenUrl,
+            ValidateAudience = true,
+            ValidAudience = firebaseProjectId,
+            ValidateLifetime = true
+        };
+    });
+
+
 
 // Add services to the container.
 builder.Services.AddTransient<IUser, UserRepository>();
@@ -28,6 +56,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

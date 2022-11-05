@@ -39,6 +39,7 @@ namespace Granny_s_Hot_Box.Controllers
         [HttpGet("{id}")]
         public ActionResult Details(int id)
         {
+            var user2 = User;
             var user = _userRepo.GetUserById(id);
             return Ok(user);
         }
