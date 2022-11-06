@@ -7,10 +7,10 @@ using Google.Apis.Auth.OAuth2;
 
 var builder = WebApplication.CreateBuilder(args);
 
-FirebaseApp.Create(new AppOptions
-{
-    Credential = GoogleCredential.FromFile("")
-});
+//FirebaseApp.Create(new AppOptions
+//{
+//    Credential = GoogleCredential.FromFile("")
+//});
 
 var firebaseProjectId = builder.Configuration.GetValue<string>("Authentication:Firebase:ProjectId");
 var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
