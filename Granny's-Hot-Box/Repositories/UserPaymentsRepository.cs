@@ -2,6 +2,7 @@
 using Granny_s_Hot_Box.Models;
 using Granny_s_Hot_Box.Interfaces;
 using NuGet.Protocol.Plugins;
+using Google.Api.Gax;
 
 namespace Granny_s_Hot_Box.Repositories
 {
@@ -9,7 +10,10 @@ namespace Granny_s_Hot_Box.Repositories
     {
         private readonly string _baseSqlSelect = @"SELECT Id,
                                                           CardName,
+                                                          BillingAddress,
 	                                                      AccountNum,
+                                                          Expiration,
+                                                          CVV,
 	                                                      UserId,
                                                           PaymentTypeId
                                                           FROM UserPayments";
@@ -72,20 +76,6 @@ namespace Granny_s_Hot_Box.Repositories
             }
         }
 
-
-
-        private UserPayment LoadFromData(SqlDataReader reader)
-        {
-            return new UserPayment
-            {
-                Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                CardName = reader.GetString(reader.GetOrdinal("CardName")),
-                AccountNum = reader.GetString(reader.GetOrdinal("AccountNum")),
-                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
-                PaymentTypeId = reader.GetInt32(reader.GetOrdinal("PaymentTypeId"))
-                
-            };
-        }
         public UserPayment CreateUserPayment(UserPayment userPayments)
         {
             using (SqlConnection conn = Connection)
@@ -96,20 +86,29 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.CommandText = @"
                    INSERT INTO [UserPayments]             (
                                                           CardName,
+                                                          BillingAddress,
 	                                                      AccountNum,
+                                                          Expiration,
+                                                          CVV,
 	                                                      UserId,
                                                           PaymentTypeId
                                                           )
                     OUTPUT INSERTED.ID
                     VALUES                          (
                                                           @CardName,
+                                                          @BillingAddress,
 	                                                      @AccountNum,
+                                                          @Expiration,
+                                                          @CVV,
 	                                                      @UserId,
                                                           @PaymentTypeId
                                                           );
                 ";
                     cmd.Parameters.AddWithValue("@CardName", userPayments.CardName);
+                    cmd.Parameters.AddWithValue("@BillingAddress", userPayments.BillingAddress);
                     cmd.Parameters.AddWithValue("@AccountNum", userPayments.AccountNum);
+                    cmd.Parameters.AddWithValue("@Expiration", userPayments.Expiration);
+                    cmd.Parameters.AddWithValue("@CVV", userPayments.CVV);
                     cmd.Parameters.AddWithValue("@UserId", userPayments.UserId);
                     cmd.Parameters.AddWithValue("@PaymentTypeId", userPayments.PaymentTypeId);
 
@@ -133,13 +132,19 @@ namespace Granny_s_Hot_Box.Repositories
                     UPDATE UserPayments
                     SET
                         CardName = @cardName,
+                        BillingAddress = @billingAddress,
                         AccountNum = @accountNum,
+                        Expiration = @expiration,
+                        CVV = @cvv,
                         UserId = @userId,
                         PaymentTypeId = @paymentTypeId
                     WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@cardName", userPayment.CardName);
+                    cmd.Parameters.AddWithValue("@BillingAddress", userPayment.BillingAddress);
                     cmd.Parameters.AddWithValue("@accountNum", userPayment.AccountNum);
+                    cmd.Parameters.AddWithValue("@Expiration", userPayment.Expiration);
+                    cmd.Parameters.AddWithValue("@CVV", userPayment.CVV);
                     cmd.Parameters.AddWithValue("@userId", userPayment.UserId);
                     cmd.Parameters.AddWithValue("@paymentTypeId", userPayment.PaymentTypeId);
                     cmd.Parameters.AddWithValue("@id", userPayment.Id);
@@ -147,6 +152,21 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+        private UserPayment LoadFromData(SqlDataReader reader)
+        {
+            return new UserPayment
+            {
+                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                CardName = reader.GetString(reader.GetOrdinal("CardName")),
+                BillingAddress = reader.GetString(reader.GetOrdinal("BillingAddress")),
+                AccountNum = reader.GetString(reader.GetOrdinal("AccountNum")),
+                Expiration = reader.GetDateTime(reader.GetOrdinal("Expiration")),
+                CVV = reader.GetString(reader.GetOrdinal("CVV")),
+                UserId = reader.GetInt32(reader.GetOrdinal("UserId")),
+                PaymentTypeId = reader.GetInt32(reader.GetOrdinal("PaymentTypeId"))
+                
+            };
         }
     }
 }
