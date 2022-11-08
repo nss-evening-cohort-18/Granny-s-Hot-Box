@@ -14,7 +14,8 @@ namespace Granny_s_Hot_Box.Repositories
                                                     Image,
                                                     Description,
                                                     Quantity,
-                                                    IsForSale
+                                                    IsForSale,
+                                                    IsDessert
                                                    FROM MealProduct";
 
         public MealProductRepository(IConfiguration config) : base(config) { }
@@ -53,9 +54,9 @@ namespace Granny_s_Hot_Box.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO [MealProduct] (MealName, Price, UserId, Image, Description, Quantity, IsForSale)
+                    INSERT INTO [MealProduct] (MealName, Price, UserId, Image, Description, Quantity, IsForSale, IsDessert)
                     OUTPUT INSERTED.ID
-                    VALUES (@MealName, @Price, @UserId, @Image, @Description, @Quantity, @IsForSale);
+                    VALUES (@MealName, @Price, @UserId, @Image, @Description, @Quantity, @IsForSale, @IsDessert);
                 ";
                     cmd.Parameters.AddWithValue("@MealName", product.MealName);
                     cmd.Parameters.AddWithValue("@Price", product.Price);
@@ -64,6 +65,7 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.Parameters.AddWithValue("@Description", product.Description);
                     cmd.Parameters.AddWithValue("@Quantity", product.Quantity);
                     cmd.Parameters.AddWithValue("@IsForSale", product.IsForSale);
+                    cmd.Parameters.AddWithValue("@IsDessert", product.IsDessert);
 
                     int id = (int)cmd.ExecuteScalar();
 
@@ -121,7 +123,8 @@ namespace Granny_s_Hot_Box.Repositories
                                 Image = @image,
                                 Description = @description,
                                 Quantity = @quantity,
-                                IsForSale = @isForSale
+                                IsForSale = @isForSale,
+                                IsDessert = @isDessert
                             WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@mealName", product.MealName);
@@ -131,6 +134,7 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.Parameters.AddWithValue("@description", product.Description);
                     cmd.Parameters.AddWithValue("@quantity", product.Quantity);
                     cmd.Parameters.AddWithValue("@isForSale", product.IsForSale);
+                    cmd.Parameters.AddWithValue("@isDessert", product.IsDessert);
                     cmd.Parameters.AddWithValue("@id", product.Id);
 
                     cmd.ExecuteNonQuery();
@@ -171,7 +175,8 @@ namespace Granny_s_Hot_Box.Repositories
                 Image = reader.GetString(reader.GetOrdinal("Image")),
                 Description = reader.GetString(reader.GetOrdinal("Description")),
                 Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
-                IsForSale = reader.GetBoolean(reader.GetOrdinal("IsForSale"))
+                IsForSale = reader.GetBoolean(reader.GetOrdinal("IsForSale")),
+                IsDessert = reader.GetBoolean(reader.GetOrdinal("IsDessert"))
             };
         }
     }

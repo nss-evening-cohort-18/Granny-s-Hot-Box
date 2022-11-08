@@ -11,6 +11,8 @@
         public string Description { get; set; }
         public int Quantity { get; set; }
         public bool IsForSale { get; set; }
+        public bool IsDessert { get; set; }
+
 
     }
 }
