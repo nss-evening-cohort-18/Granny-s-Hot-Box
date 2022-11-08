@@ -78,8 +78,8 @@ namespace Granny_s_Hot_Box.Repositories
                 {
                     cmd.CommandText = @$"SELECT om.Id, o.Id AS OrderId, mp.Id AS MealProductId, o.UserId, RecipientName, 
                                                 ShippingAddress, UserPaymentId, Total, IsComplete, DateOrdered, 
-                                                DateCompleted, MealName, Price, mp.UserId AS SellerId, [Image], 
-                                                [Description], Quantity, IsForSale 
+                                                DateCompleted, Message, MealName, Price, mp.UserId AS SellerId, [Image], 
+                                                [Description], Quantity, IsForSale, IsDessert
                                          FROM((OrderMeals om
                                          JOIN[Order] o ON om.OrderId = o.Id)
                                          JOIN MealProduct mp ON om.MealProductId = mp.Id) 
@@ -129,13 +129,15 @@ namespace Granny_s_Hot_Box.Repositories
                 IsComplete = reader.GetBoolean(reader.GetOrdinal("IsComplete")),
                 DateOrdered = reader.GetDateTime(reader.GetOrdinal("DateOrdered")),
                 DateCompleted = reader.GetDateTime(reader.GetOrdinal("DateCompleted")),
+                Message = reader.GetString(reader.GetOrdinal("Message")),
                 MealName = reader.GetString(reader.GetOrdinal("MealName")),
                 Price = reader.GetDecimal(reader.GetOrdinal("Price")),
                 SellerId = reader.GetInt32(reader.GetOrdinal("SellerId")),
                 Image = reader.GetString(reader.GetOrdinal("Image")),
                 Description = reader.GetString(reader.GetOrdinal("Description")),
                 Quantity = reader.GetInt32(reader.GetOrdinal("Quantity")),
-                IsForSale = reader.GetBoolean(reader.GetOrdinal("IsForSale"))
+                IsForSale = reader.GetBoolean(reader.GetOrdinal("IsForSale")),
+                IsDessert = reader.GetBoolean(reader.GetOrdinal("IsDessert"))
 
             };
         }
