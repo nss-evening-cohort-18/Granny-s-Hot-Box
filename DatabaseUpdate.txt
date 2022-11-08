@@ -13,9 +13,6 @@ WHERE MealName = 'Sweet Potato Pie';
 ALTER TABLE [Order]
 ADD [Message] VARCHAR(255) NOT NULL DEFAULT '';
 
-UPDATE [Order]
-SET [Message] = 'Get well soon my friend.'
-WHERE RecipientName = 'Bill Moore';
 
 
 ALTER TABLE [UserPayments]
@@ -57,6 +54,3 @@ UPDATE [UserPayments]
 SET CVV = '981'
 WHERE AccountNum = '7465822146982570';
 
-UPDATE [UserPayments]
-SET CVV = '466'
-WHERE AccountNum = '1234432156788765';
