@@ -13,5 +13,7 @@ namespace Granny_s_Hot_Box.Models
         public int UserPaymentId { get; set; }
         public DateTime DateOrdered { get; set; }
         public DateTime DateCompleted { get; set; }
+        public string? Message { get; set; }
+
     }
 }

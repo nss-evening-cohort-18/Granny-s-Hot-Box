@@ -14,7 +14,8 @@ namespace Granny_s_Hot_Box.Repositories
                                                     IsComplete,
                                                     UserPaymentId,
                                                     DateOrdered,
-                                                    DateCompleted
+                                                    DateCompleted,
+                                                    Message
                                                    FROM [Order]";
 
         public OrderRepository(IConfiguration config) : base(config) { }
@@ -61,7 +62,8 @@ namespace Granny_s_Hot_Box.Repositories
                                                     IsComplete,
                                                     UserPaymentId,
                                                     DateOrdered,
-                                                    DateCompleted)
+                                                    DateCompleted,
+                                                    Message)
                     OUTPUT INSERTED.ID
                     VALUES                          (@UserId,
                                                     @Total,
@@ -70,7 +72,8 @@ namespace Granny_s_Hot_Box.Repositories
                                                     @IsComplete,
                                                     @UserPaymentId,
                                                     @DateOrdered,
-                                                    @DateCompleted);
+                                                    @DateCompleted,
+                                                    @Message);
                 ";
                     cmd.Parameters.AddWithValue("@userId", order.UserId);
                     cmd.Parameters.AddWithValue("@Total", order.Total);
@@ -80,6 +83,7 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.Parameters.AddWithValue("@UserPaymentId", order.UserPaymentId);
                     cmd.Parameters.AddWithValue("@DateOrdered", order.DateOrdered);
                     cmd.Parameters.AddWithValue("@DateCompleted", order.DateCompleted);
+                    cmd.Parameters.AddWithValue("@Message", order.Message);
 
                     int id = (int)cmd.ExecuteScalar();
 
@@ -133,7 +137,8 @@ namespace Granny_s_Hot_Box.Repositories
                                 ShippingAddress = @shippingAddress,
                                 IsComplete = @isComplete,
                                 UserPaymentId = @userPaymentId,
-                                DateCompleted = @dateCompleted
+                                DateCompleted = @dateCompleted,
+                                Message = @message
                             WHERE Id = @id";
 
                     cmd.Parameters.AddWithValue("@total", order.Total);
@@ -142,6 +147,7 @@ namespace Granny_s_Hot_Box.Repositories
                     cmd.Parameters.AddWithValue("@isComplete", order.IsComplete);
                     cmd.Parameters.AddWithValue("@userPaymentId", order.UserPaymentId);
                     cmd.Parameters.AddWithValue("@dateCompleted", order.DateCompleted);
+                    cmd.Parameters.AddWithValue("@message", order.Message);
                     cmd.Parameters.AddWithValue("@id", order.Id);
 
                     cmd.ExecuteNonQuery();
@@ -162,7 +168,8 @@ namespace Granny_s_Hot_Box.Repositories
                 IsComplete = reader.GetBoolean(reader.GetOrdinal("IsComplete")),
                 UserPaymentId = reader.GetInt32(reader.GetOrdinal("UserPaymentId")),
                 DateOrdered = reader.GetDateTime(reader.GetOrdinal("DateOrdered")),
-                DateCompleted = reader.GetDateTime(reader.GetOrdinal("DateCompleted"))
+                DateCompleted = reader.GetDateTime(reader.GetOrdinal("DateCompleted")),
+                Message = reader.GetString(reader.GetOrdinal("Message"))
 
             };
         }
