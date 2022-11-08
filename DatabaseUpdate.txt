@@ -1,0 +1,62 @@
+ALTER TABLE [MealProduct]
+ADD IsDessert Bit NOT NULL DEFAULT 0;
+
+UPDATE [MealProduct]
+SET IsDessert = 1
+WHERE MealName = 'Pecan Pie';
+
+UPDATE [MealProduct]
+SET IsDessert = 1
+WHERE MealName = 'Sweet Potato Pie';
+
+
+ALTER TABLE [Order]
+ADD [Message] VARCHAR(255) NOT NULL DEFAULT '';
+
+UPDATE [Order]
+SET [Message] = 'Get well soon my friend.'
+WHERE RecipientName = 'Bill Moore';
+
+
+ALTER TABLE [UserPayments]
+ADD BillingAddress VARCHAR(255) NOT NULL DEFAULT '';
+
+UPDATE [UserPayments]
+SET BillingAddress = '321 Main St Nashville, TN 37206'
+WHERE UserId = 1
+
+UPDATE [UserPayments]
+SET CardName = 'Mary Swanson'
+WHERE UserId = 1
+
+UPDATE [UserPayments]
+SET BillingAddress = '456 Park Ave Nashville, TN 37217'
+WHERE UserId = 2
+
+
+ALTER TABLE [UserPayments]
+ADD Expiration DATE NOT NULL DEFAULT '1900-01-01';
+
+UPDATE [UserPayments]
+SET Expiration = '2025-08-01'
+WHERE UserId = 1;
+
+UPDATE [UserPayments]
+SET Expiration = '2024-03-01'
+WHERE UserId = 2;
+
+
+ALTER TABLE [UserPayments]
+ADD CVV VARCHAR(3) NOT NULL DEFAULT '';
+
+UPDATE [UserPayments]
+SET CVV = '357'
+WHERE AccountNum = '3423526782549016';
+
+UPDATE [UserPayments]
+SET CVV = '981'
+WHERE AccountNum = '7465822146982570';
+
+UPDATE [UserPayments]
+SET CVV = '466'
+WHERE AccountNum = '1234432156788765';
