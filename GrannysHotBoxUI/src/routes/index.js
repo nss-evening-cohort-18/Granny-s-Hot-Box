@@ -8,10 +8,14 @@ export default function Routes({ user }) {
   return (
     <div>
       <Switch>
+        
+
         <Route exact path="/" component={() => <Authenticated user={user} />} />
         <Route exact path="/login" component={() => <LogIn />} />
         <Route path="*" component={() => <Authenticated user={user} />} />
       </Switch>
     </div>
+
+    //<Route exact path="/home" element={Home()} />
   );
 }
