@@ -17,7 +17,7 @@ function Initialize() {
       <div classname="Index">
         {user ? (
           <>
-            <Navigation user={user} />
+            <Navigation user={user}/>
             <Routes user={user} />
           </>
         ) : (

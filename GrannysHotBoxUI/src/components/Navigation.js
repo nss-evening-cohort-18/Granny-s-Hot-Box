@@ -10,13 +10,18 @@ export const Navigation = ({ user }) => {
         <div>
             <Navbar>
                 <NavItem>
-                    <NavLink href="/">
+                    <NavLink href="/home">
                         Home
                     </NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink href="/test">
                         Test
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/about">
+                        About
                     </NavLink>
                 </NavItem>
             </Navbar>
