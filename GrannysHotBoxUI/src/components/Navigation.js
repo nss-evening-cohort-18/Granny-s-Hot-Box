@@ -20,8 +20,8 @@ export const Navigation = ({ user }) => {
                     </NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="/about">
-                        About
+                    <NavLink href="/Cart">
+                        Cart
                     </NavLink>
                 </NavItem>
             </Navbar>
