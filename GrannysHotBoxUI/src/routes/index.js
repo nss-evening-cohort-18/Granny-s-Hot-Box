@@ -9,14 +9,17 @@ import Cart from '../pages/Cart';
 import Menu from '../pages/Menu';
 
 export default function Routes({ user }) {
+ // const [cartItems, setCartItems] = useState ([]);
+
+
   return (
     <div>
       <Switch>
         <Route exact path="/" component={() => <Authenticated user={user} />} />
         <Route exact path="/test" component={() => <Test /> } />
-        <Route exact path="/cart" component={() => <Cart /> } />
+        <Route exact path="/cart" component={() => <Cart  /> } />
         <Route exact path="/home" component={() => <Home />} />
-        <Route exact path="/menu" component={() => <Menu />} />
+        <Route exact path="/menu" component={() => <Menu setCartItems={setCartItems} />} />
 
         <Route exact path="/login" component={() => <LogIn />} />
         <Route path="*" component={() => <Authenticated user={user} />} />

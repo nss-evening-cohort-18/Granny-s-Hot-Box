@@ -30,6 +30,15 @@ builder.Services
     });
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                      });
+});
+
 
 // Add services to the container.
 builder.Services.AddTransient<IUser, UserRepository>();
