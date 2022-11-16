@@ -14,7 +14,7 @@ function Initialize() {
   }
 
   return (
-      <div classname="Index">
+      <div className="Index">
         {user ? (
           <>
             <Navigation user={user}/>
