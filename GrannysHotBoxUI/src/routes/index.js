@@ -17,7 +17,7 @@ export default function Routes({ user }) {
         <Route exact path="/about" component={() => <About /> } />
         <Route exact path="/home" component={() => <Home />} />
         <Route exact path="/menu" component={() => <Menu />} />
-
+        
         <Route exact path="/login" component={() => <LogIn />} />
         <Route path="*" component={() => <Authenticated user={user} />} />
       </Switch>
