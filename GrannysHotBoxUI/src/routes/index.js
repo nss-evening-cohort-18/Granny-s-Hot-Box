@@ -1,5 +1,5 @@
 // index for router
-import React from 'react';
+import React , {useState} from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Authenticated from '../pages/Authenticated';
 import LogIn from '../pages/LogIn';
@@ -8,8 +8,11 @@ import Home from '../pages/Home';
 import Cart from '../pages/Cart';
 import Menu from '../pages/Menu';
 
+
 export default function Routes({ user }) {
- // const [cartItems, setCartItems] = useState ([]);
+  const [cartItem, setCartItems] = useState ([]);
+  const [mpName, setMealProductName]= useState();
+
 
 
   return (
@@ -17,7 +20,7 @@ export default function Routes({ user }) {
       <Switch>
         <Route exact path="/" component={() => <Authenticated user={user} />} />
         <Route exact path="/test" component={() => <Test /> } />
-        <Route exact path="/cart" component={() => <Cart  /> } />
+        <Route exact path="/cart" component={() => <Cart cartItem={cartItem} setMealProductName={setMealProductName} /> } />
         <Route exact path="/home" component={() => <Home />} />
         <Route exact path="/menu" component={() => <Menu setCartItems={setCartItems} />} />
 
