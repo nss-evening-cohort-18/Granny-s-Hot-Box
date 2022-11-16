@@ -26,6 +26,7 @@ export default function Menu() {
                     <img className='menu-image' src={product.image}/>
                     <h5>{product.mealName}</h5>
                     <h6>{product.price}</h6>
+                    <button onClick={() => alert( product.description )}>Description</button>
                    </div>
                 })}
         </div>
