@@ -1,7 +1,7 @@
 //FOR TESTING USE
 import React, { useState,useEffect } from 'react';
 
-export default function Cart ({setMealProductName,setMealPrice,setImage,setDescription,setQuantity,setIsDessert,setIsForSale, setMealPrice}, cartItem) {
+export default function Cart ({setMealProductName,setMealPrice,setImage,setDescription,setQuantity,setIsDessert,setIsForSale, setUserId}, cartItem) {
   const [currentCart, setCartList] = useState([]);
 
   useEffect(() => {
@@ -13,11 +13,11 @@ export default function Cart ({setMealProductName,setMealPrice,setImage,setDescr
       `https://Localhost:7245/api/MealProduct/${cartItem.id}`,
       requestOptions,
     )
-      .then((response) => response.json())
+      .then()
       .then(inspectResults);
   }, []);
   const inspectResults = (data) => {   
-
+      setCartList(data)
       setMealProductName(data.MealName);
       setMealPrice(data.Price);
       setUserId(data.UserId);
@@ -35,7 +35,7 @@ return (
     <div>
     <h1> Granny's Hotbox Cart - Ready to Go!</h1>
     <div>
-         {currentCart?.map((Meal) => {
+         {currentCart.map((Meal) => {
             return (
             <>
                 <div>
