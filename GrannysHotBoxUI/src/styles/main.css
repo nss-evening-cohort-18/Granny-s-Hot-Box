@@ -1,3 +1,21 @@
 body {
   background-color: lightblue !important;
 }
+ 
+Navbar {
+  background-color: white;
+}
+ 
+.navbar-logo {
+  height: 120px;
+}
+ 
+.profilePic {
+  width: 50px;
+}
+
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  padding-right: 120px;
+}

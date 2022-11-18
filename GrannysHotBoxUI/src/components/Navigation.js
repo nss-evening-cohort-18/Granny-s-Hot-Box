@@ -1,50 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 //import { Link } from "react-router-dom"
-import { Navbar, NavItem, NavLink } from 'react-bootstrap';
-
+import { signOut } from '../utils/auth';
+import GrannysHotBoxLogo from "../Images/GrannysHotBoxLogo";
+import {
+    Navbar,
+    Button,
+    NavbarBrand,
+    NavDropdown,
+    Nav
+ } from 'react-bootstrap';
+ 
+ 
 export const Navigation = ({ user }) => {
     return (
         // potentially switch to NavLink instead of Link
-
+ 
         <div>
-            <Navbar>
-                <NavItem>
-                    <NavLink href="/home">
-                        Home
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink href="/test">
-                        Test
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink href="/about">
-                        About
-                    </NavLink>
-                </NavItem>
+            <Navbar bg="light">
+                <NavbarBrand href="/home">
+                    <img
+                        className="navbar-logo"
+                        src={GrannysHotBoxLogo}
+                        alt="Granny's Hot Box Logo"
+                    />
+                </NavbarBrand>
+                <Nav>
+                    <Nav.Link href="/home">Home</Nav.Link>
+                    <Nav.Link href="/test">Test</Nav.Link>
+                    <Nav.Link href="/about">About</Nav.Link>
+                </Nav>
+                <div className='user-dropdown'>
+                    <img
+                        href="/home"
+                        className="profilePic"
+                        src={user.photoURL}
+                    ></img>
+                    <NavDropdown>
+                        <NavDropdown.Item
+                            eventKey="1"
+                        >{user.displayName}</NavDropdown.Item>
+                        <NavDropdown.Divider></NavDropdown.Divider>
+                        <Button onClick={signOut}>
+                            Sign Out
+                        </Button>
+                    </NavDropdown>
+                </div>
+               
+ 
             </Navbar>
         </div>
-
-        /*
-        <nav className="nav">
-            <Link to='/cocktails'>Cocktails</Link>
-            <Link to='/shopping'>Shopping List</Link>
-            <Link to='/inventory'>Inventory</Link>
-            <Link to='/available'>Available Cocktails</Link>
-            <Link to='/changePassword'>Change Password</Link>
-        </nav>
-        */
+ 
+ 
     );
 }
-
-
-
+ 
+ 
+ 
 Navigation.defaultProps = {
     user: null,
 };
-
+ 
 Navigation.propTypes = {
     user: PropTypes.oneOfType([
         PropTypes.bool,
