@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { signOut } from '../utils/auth';
 import GrannysHotBoxLogo from "../Images/GrannysHotBoxLogo";
 import {
@@ -8,11 +8,13 @@ import {
     Button,
     NavbarBrand,
     NavDropdown,
-    Nav
+    NavItem,
+    NavLink
  } from 'react-bootstrap';
  
  
 export const Navigation = ({ user }) => {
+    const history= useHistory()
     return (
         // potentially switch to NavLink instead of Link
  
@@ -25,11 +27,25 @@ export const Navigation = ({ user }) => {
                         alt="Granny's Hot Box Logo"
                     />
                 </NavbarBrand>
-                <Nav>
-                    <Nav.Link href="/home">Home</Nav.Link>
-                    <Nav.Link href="/menu">Menu</Nav.Link>
-                    <Nav.Link href="/about">About</Nav.Link>
-                </Nav>
+                <div>
+            <Navbar>
+                <NavItem>
+                    <NavLink onClick={() => history.push("/home")}>
+                        Home
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink onClick={() => history.push("/test")}>
+                        Test
+                    </NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink onClick={() => history.push("/cart")}>
+                        Cart
+                    </NavLink>
+                </NavItem>
+            </Navbar>
+        </div>
                 <div className='user-dropdown'>
                     <img
                         href="/home"

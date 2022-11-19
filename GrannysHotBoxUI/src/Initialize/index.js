@@ -21,7 +21,7 @@ function Initialize() {
             <Routes user={user} />
           </>
         ) : (
-          <LogIn user={user} />
+          <LogIn />
         )}
 
       </div>
