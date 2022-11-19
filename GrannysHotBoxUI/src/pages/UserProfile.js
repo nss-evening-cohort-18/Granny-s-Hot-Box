@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import axios from "axios";
-import "C:/Users/pv2sw/workspace/GrannysHotBox/GrannysHotBoxUI/src/styles/main.css"
+import "../src/styles/main.css"
 
 export default function UserProfile({ user }) {
     return (
