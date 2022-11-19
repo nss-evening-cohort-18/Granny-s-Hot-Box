@@ -12,5 +12,22 @@ body {
 .UserPic {
   border-radius: 40px;
   border: 10px;
+}
 
+Navbar {
+  background-color: white;
+}
+ 
+.navbar-logo {
+  width: 120px;
+}
+ 
+.profilePic {
+  width: 50px;
+}
+
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  padding-right: 120px;
 }
