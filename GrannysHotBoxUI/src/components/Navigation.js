@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { Navbar, NavItem, NavLink } from 'react-bootstrap';
 
-export const Navigation = ({ user }) => {
+
+export const Navigation = () => {
+const history = useHistory()
+
     return (
         // potentially switch to NavLink instead of Link
 
         <div>
             <Navbar>
                 <NavItem>
-                    <NavLink href="/home">
+                    <NavLink onClick={() => history.push("/home")}>
                         Home
                     </NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="/test">
+                    <NavLink onClick={() => history.push("/test")}>
                         Test
                     </NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink href="/Cart">
+                    <NavLink onClick={() => history.push("/cart")}>
                         Cart
                     </NavLink>
                 </NavItem>

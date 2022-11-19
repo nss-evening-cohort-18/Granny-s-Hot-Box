@@ -1,6 +1,6 @@
 // index for router
 import React, { useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Authenticated from '../pages/Authenticated';
 import LogIn from '../pages/LogIn';
 import Test from '../pages/Test';
@@ -9,16 +9,10 @@ import Cart from '../pages/Cart';
 import Menu from '../pages/Menu';
 
 export default function Routes({ user }) {
-  const [cartItem, setCartItems] = useState([]);
-  const [mpName, setMealProductName] = useState();
-  const [mealPrice, setMealPrice] = useState();
-  const [UID, setUserId] = useState();
-  const [image, setImage] = useState();
-  const [description, setDescription] = useState();
-  const [qty, setQuantity] = useState();
-  const [dessert, setIsDessert] = useState();
-  const [forSale, setIsForSale] = useState();
+  const [cartItems, setCartItems] = useState([]); 
 
+  console.log(cartItems);
+  
   return (
     <div>
       <Switch>
@@ -27,27 +21,19 @@ export default function Routes({ user }) {
         <Route
           exact
           path="/cart"
-          component={() => (
-            <Cart
-              cartItem={cartItem}
-              setMealProductName={setMealProductName}
-              setMealPrice={setMealPrice}
-              setUserId={setUserId}
-              setImage={setImage}
-              setDescription={setDescription}
-              setQuantity={setQuantity}
-              setIsDessert={setIsDessert}
-              setIsForSale={setIsForSale}
-            />
-          )}
+          component={() => <Cart cartItems={cartItems}  />}
         />
         <Route exact path="/home" component={() => <Home />} />
         <Route
           exact
           path="/menu"
-          component={() => <Menu setCartItems={setCartItems} />}
+          component={() => (
+            <Menu
+              setCartItems={setCartItems}
+              cartItems={cartItems}              
+            />
+          )}
         />
-
         <Route exact path="/login" component={() => <LogIn />} />
         <Route path="*" component={() => <Authenticated user={user} />} />
       </Switch>

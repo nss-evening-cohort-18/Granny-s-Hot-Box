@@ -1,70 +1,62 @@
 //FOR TESTING USE
-import React, { useState,useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import '../styles/menu.css';
 
-export default function Cart ({setMealProductName,setMealPrice,setImage,setDescription,setQuantity,setIsDessert,setIsForSale, setUserId}, cartItem) {
-  const [currentCart, setCartList] = useState([]);
+export default function Cart({ cartItems, setCartItems }) {
+  const [Total, addToTotal] = useState(0.0);
+
+  let runningTotal = 0.0;
+
+  const calculateTotal = () => {
+    cartItems.map((item) => {
+      let productTotal = item.price * item.cartQuantity;
+      runningTotal += productTotal;
+      addToTotal(runningTotal);
+    });
+  };
+
+  const DeleteItemFromCart = (productToDelete) => {
+    cartItems.map((product) => {
+      if (product.id === productToDelete.id) {
+        product.cartQuantity--;
+        calculateTotal();
+      }
+    });
+  };
 
   useEffect(() => {
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow',
-    };
-    fetch(
-      `https://Localhost:7245/api/MealProduct/${cartItem.id}`,
-      requestOptions,
-    )
-      .then()
-      .then(inspectResults);
-  }, []);
-  const inspectResults = (data) => {   
-      setCartList(data)
-      setMealProductName(data.MealName);
-      setMealPrice(data.Price);
-      setUserId(data.UserId);
-      setImage(data.Image);
-      setDescription(data.Description);
-      setQuantity(data.Quantity);
-      setIsForSale(data.IsForSale);
-      setIsDessert(data.IsDessert);
-    
-  };
+    calculateTotal();
+  }),
+    [];
 
+  console.log(cartItems);
+  console.log(Total);
 
+  //method to loop through cartItems and calculate== set the total to state
+  // delete method should loop through and remove items and recalculate total
 
-return (
+  return (
     <div>
-    <h1> Granny's Hotbox Cart - Ready to Go!</h1>
-    <div>
-         {currentCart.map((Meal) => {
-            return (
-            <>
-                <div>
-                <h1 >${Meal.MealName}</h1>
-                </div>
+      <h1> Granny's Hotbox Cart - Ready to Go!</h1>
+      <div className="menu-items">
+        {cartItems.map((item) => {
+          return (
+            <div key={item.id} className="single-menu-item">
+              <div>
+                <h1>{item.mealName}</h1>
+              </div>
 
-                <div>
-                    <li>Quantity</li> <li> ${Meal.Quantity} </li>
-                    <li>Meal Price</li> <li>${Meal.Price}</li>
-                    
-                </div>
-                
-            </>
-            )
-         })}
+              <div>
+                <img className="menu-image" src={item.image}></img>
+                <p>Quantity: {item.cartQuantity} </p>
+                <p>Meal Price: {item.price}</p>
+                <button onClick={() => DeleteItemFromCart(item)}>Delete</button>
+              </div>
             </div>
+          );
+        })}
       </div>
-    );
-  }
-
-
-/*
-
-const setcurrentCarts = (mealProduct) => {
-    setcurrentCarts((prev) => {
-      let oldCart = { ...prev };
-      oldCart.Id = mealProduct;
-      return oldCart;
-      });
-  };
-  
-  */
+      <p>Order Total: ${Total}</p>
+    </div>
+  );
+}
