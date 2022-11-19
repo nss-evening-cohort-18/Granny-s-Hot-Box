@@ -6,7 +6,7 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 //FirebaseApp.Create(new AppOptions
 //{
 //    Credential = GoogleCredential.FromFile("")
@@ -44,7 +44,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                      });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -55,7 +62,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
 
