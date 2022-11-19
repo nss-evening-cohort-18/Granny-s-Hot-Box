@@ -39,6 +39,7 @@ export const Navigation = ({ user }) => {
                     <NavDropdown>
                         <NavDropdown.Item
                             eventKey="1"
+                            href="/userProfile"
                         >{user.displayName}</NavDropdown.Item>
                         <NavDropdown.Divider></NavDropdown.Divider>
                         <Button onClick={signOut}>
