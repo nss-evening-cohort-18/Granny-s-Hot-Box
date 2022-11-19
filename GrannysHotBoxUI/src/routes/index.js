@@ -5,7 +5,6 @@ import Authenticated from '../pages/Authenticated';
 import LogIn from '../pages/LogIn';
 import Test from '../pages/Test';
 import Home from '../pages/Home';
-import About from '../pages/About';
 import UserProfile from '../pages/UserProfile';
 import Cart from '../pages/Cart';
 import Menu from '../pages/Menu';
