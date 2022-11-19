@@ -27,7 +27,7 @@ export const Navigation = ({ user }) => {
                 </NavbarBrand>
                 <Nav>
                     <Nav.Link href="/home">Home</Nav.Link>
-                    <Nav.Link href="/test">Test</Nav.Link>
+                    <Nav.Link href="/menu">Menu</Nav.Link>
                     <Nav.Link href="/about">About</Nav.Link>
                 </Nav>
                 <div className='user-dropdown'>
