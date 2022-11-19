@@ -1,15 +1,11 @@
 body {
   background-color: lightblue !important;
 }
-
 .userPicAndName{
   display: flex;
   flex-direction: column;
   height: 170px;
   width: 170px;
-
-  
-
 
 }
 
@@ -18,4 +14,3 @@ body {
   border: 10px;
 
 }
-
