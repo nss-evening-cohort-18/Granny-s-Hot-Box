@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import axios from "axios";
-import "../src/styles/main.css"
+import "../styles/main.css"
 
 export default function UserProfile({ user }) {
     return (
