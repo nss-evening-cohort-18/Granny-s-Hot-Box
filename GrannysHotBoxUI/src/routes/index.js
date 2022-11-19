@@ -6,6 +6,7 @@ import LogIn from '../pages/LogIn';
 import Test from '../pages/Test';
 import Home from '../pages/Home';
 import About from '../pages/About';
+import UserProfile from '../pages/UserProfile';
 
 export default function Routes({ user }) {
   return (
@@ -15,6 +16,7 @@ export default function Routes({ user }) {
         <Route exact path="/test" component={() => <Test /> } />
         <Route exact path="/about" component={() => <About /> } />
         <Route exact path="/home" component={() => <Home />} />
+        <Route exact path="/userProfile" component={() => <UserProfile user={user} />} />
 
         <Route exact path="/login" component={() => <LogIn />} />
         <Route path="*" component={() => <Authenticated user={user} />} />
@@ -22,4 +24,6 @@ export default function Routes({ user }) {
     </div>
 
   );
+
+  
 }

@@ -24,6 +24,11 @@ export const Navigation = ({ user }) => {
                         About
                     </NavLink>
                 </NavItem>
+                <NavItem>
+                    <NavLink href="/userProfile">
+                        UserProfile
+                    </NavLink>
+                </NavItem>
             </Navbar>
         </div>
 
